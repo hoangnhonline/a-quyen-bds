@@ -14,34 +14,25 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
-      <li class="header">MAIN NAVIGATION</li>     
-      <li class="treeview {{ in_array(\Request::route()->getName(), ['product.index', 'product.create', 'product.edit', 'cate-parent.index', 'cate-parent.edit', 'cate-parent.create', 'cate.index', 'cate.edit', 'cate.create']) ? 'active' : '' }}">
+      <li class="header">MAIN NAVIGATION</li>    
+     
+      <li class="treeview {{ in_array(\Request::route()->getName(), ['articles.index', 'articles.create', 'articles.edit','articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? 'active' : '' }}">
         <a href="#">
-          <i class="fa fa-opencart"></i> 
-          <span>Sản phẩm</span>
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Căn hộ</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li {{ in_array(\Request::route()->getName(), ['product.index', 'product.edit']) ? "class=active" : "" }}><a href="{{ route('product.index') }}"><i class="fa fa-circle-o"></i> Sản phẩm</a></li>
-          <li {{ \Request::route()->getName() == "product.create" ? "class=active" : "" }}><a href="{{ route('product.create') }}"><i class="fa fa-circle-o"></i> Thêm sản phẩm</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['cate-parent.index', 'cate-parent.edit', 'cate-parent.create']) ? "class=active" : "" }}><a href="{{ route('cate-parent.index') }}"><i class="fa fa-circle-o"></i> Danh mục cha</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['cate.index', 'cate.edit', 'cate.create']) ? "class=active" : "" }}><a href="{{ route('cate.index') }}"><i class="fa fa-circle-o"></i> Danh mục con</a></li>
+          <li {{ in_array(\Request::route()->getName(), ['articles.edit', 'articles.index']) ? "class=active" : "" }}><a href="{{ route('articles.index') }}"><i class="fa fa-circle-o"></i> Căn hộ</a></li>
+          <li {{ in_array(\Request::route()->getName(), ['articles.create']) ? "class=active" : "" }} ><a href="{{ route('articles.create', ['cate_id' => 1]) }}"><i class="fa fa-circle-o"></i> Thêm căn hộ</a></li>
+          @if(Auth::user()->role == 3)
+        <!--<li {{ in_array(\Request::route()->getName(), ['articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? "class=active" : "" }} ><a href="{{ route('articles-cate.index') }}"><i class="fa fa-circle-o"></i> Danh mục blog</a></li>      -->
+        @endif    
         </ul>
+       
       </li>
-      <li {{ in_array(\Request::route()->getName(), ['orders.index']) ? "class=active" : "" }}>
-        <a href="{{ route('orders.index') }}">
-          <i class="fa fa-file-image-o"></i> 
-          <span>Đơn hàng</span>          
-        </a>       
-      </li>       
-      <!--<li {{ in_array(\Request::route()->getName(), ['customer.edit', 'customer.index']) ? "class=active" : "" }}>
-        <a href="{{ route('customer.index') }}">
-          <i class="fa fa-pencil-square-o"></i> 
-          <span>Khách hàng</span>         
-        </a>       
-      </li>-->
       <li class="treeview {{ in_array(\Request::route()->getName(), ['pages.index', 'pages.create', 'pages.edit']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-twitch"></i> 
@@ -55,23 +46,7 @@
           <li {{ in_array(\Request::route()->getName(), ['pages.create']) ? "class=active" : "" }}><a href="{{ route('pages.create') }}"><i class="fa fa-circle-o"></i> Thêm trang</a></li>          
         </ul>
       </li>
-      <li class="treeview {{ in_array(\Request::route()->getName(), ['articles.index', 'articles.create', 'articles.edit','articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-pencil-square-o"></i> 
-          <span>Blogs</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li {{ in_array(\Request::route()->getName(), ['articles.edit', 'articles.index']) ? "class=active" : "" }}><a href="{{ route('articles.index') }}"><i class="fa fa-circle-o"></i> Bài viết</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['articles.create']) ? "class=active" : "" }} ><a href="{{ route('articles.create', ['cate_id' => 1]) }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
-          @if(Auth::user()->role == 3)
-        <li {{ in_array(\Request::route()->getName(), ['articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? "class=active" : "" }} ><a href="{{ route('articles-cate.index') }}"><i class="fa fa-circle-o"></i> Danh mục blog</a></li>      
-        @endif    
-        </ul>
        
-      </li> 
       
       <li {{ in_array(\Request::route()->getName(), ['contact.edit', 'contact.index']) ? "class=active" : "" }}>
         <a href="{{ route('contact.index') }}">
@@ -96,18 +71,11 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin LAHAVA</a></li>
-          <li {{ \Request::route()->getName() == "info-seo.index" ? "class=active" : "" }}><a href="{{ route('info-seo.index') }}"><i class="fa fa-circle-o"></i> Cài đặt SEO</a></li>
-          <li {{ \Request::route()->getName() == "menu.index" ? "class=active" : "" }}><a href="{{ route('menu.index') }}"><i class="fa fa-circle-o"></i> Menu</a></li>
+          <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin sites</a></li> 
           <li {{ \Request::route()->getName() == "account.index" ? "class=active" : "" }}><a href="{{ route('account.index') }}"><i class="fa fa-circle-o"></i> Users</a></li>
-          <li class="{{ in_array(\Request::route()->getName(), ['size.index', 'size.create', 'size.edit']) ? 'active' : '' }}"><a href="{{ route('size.index') }}"><i class="fa fa-circle-o"></i> Size</a></li>
-          <li {{ \Request::route()->getName() == "color.index" ? "class=active" : "" }}><a href="{{ route('color.index') }}"><i class="fa fa-circle-o"></i> Màu sắc</a></li>      
+          <li class="{{ in_array(\Request::route()->getName(), ['size.index', 'size.create', 'size.edit']) ? 'active' : '' }}"><a href="{{ route('size.index') }}"><i class="fa fa-circle-o"></i> Size</a></li>        
         </ul>
-      </li>
-      <!--<li class="header">LABELS</li>
-      <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
+      </li>      
     </ul>
   </section>
   <!-- /.sidebar -->

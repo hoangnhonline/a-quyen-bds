@@ -4,19 +4,20 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Bài viết    
+      Sản phẩm mới    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('articles.index') }}">Bài viết</a></li>
-      <li class="active">Tạo mới</li>
+      <li><a href="{{ route('product.index') }}">Sản phẩm mới</a></li>
+      <li class="active">Thêm mới</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('articles.index') }}" style="margin-bottom:5px">Quay lại</a>
-    <form role="form" method="POST" action="{{ route('articles.store') }}">
+    <a class="btn btn-default btn-sm" href="{{ route('product.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <form role="form" method="POST" action="{{ route('product.store') }}" id="dataForm" class="productForm">
+    <input type="hidden" name="is_copy" value="1">
     <div class="row">
       <!-- left column -->
 
@@ -24,113 +25,85 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Tạo mới</h3>
+            <h3 class="box-title">Thêm mới</h3>
           </div>
           <!-- /.box-header -->               
-            {!! csrf_field() !!}
-
+            {!! csrf_field() !!}          
             <div class="box-body">
-              @if (count($errors) > 0)
+                @if (count($errors) > 0)
                   <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                   </div>
-              @endif                
-                <div class="form-group">
-                  <label for="email">Danh mục <span class="red-star">*</span></label>
-                  <select class="form-control" name="cate_id" id="cate_id">
-                    <option value="">-- chọn --</option>
-                    @if( $cateArr->count() > 0)
-                      @foreach( $cateArr as $value )
-                      <option value="{{ $value->id }}" {{ $value->id == old('cate_id') || $value->id == $cate_id ? "selected" : "" }}>{{ $value->name }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                </div>                           
-                
-                <div class="form-group" >
+                @endif
+                <div>
+
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>                    
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>                    
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                   
+                    <div role="tabpanel" class="tab-pane active" id="home">                                                                        
+                        <div class="form-group" >                  
+                          <label>Tên <span class="red-star">*</span></label>
+                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name') }}">
+                        </div>
+                        <div class="form-group">                  
+                          <label>Slug <span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
+                        </div>
+                        <div class="clearfix"></div>                        
+                        <div class="form-group" style="margin-top: 15px !important;">
+                        <label>Chi tiết</label>
+                        <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                        <div class="clearfix"></div>
+                        <textarea class="form-control" rows="4" name="content" id="content">{{ old('content') }}</textarea>
+                      </div>
+                        <div style="margin-bottom:10px;clear:both"></div>
+                        <div class="clearfix"></div>
+                    </div><!--end thong tin co ban-->                    
+                    
+                     <div role="tabpanel" class="tab-pane" id="settings">
+                        <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
+                         
+                          <div class="col-md-12" style="text-align:center">
+                         
+                            <button class="btn btn-primary btnMultiUpload" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                            <div class="clearfix"></div>
+                            <div id="div-image" style="margin-top:10px"></div>
+                          </div>
+                          <div style="clear:both"></div>
+                        </div>
+
+                     </div><!--end hinh anh-->                    
+                  </div>
+
+                </div>
                   
-                  <label>Tiêu đề <span class="red-star">*</span></label>
-                  <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
-                </div>
-                <span class=""></span>
-                <div class="form-group">                  
-                  <label>Slug <span class="red-star">*</span></label>                  
-                  <input type="text" class="form-control" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
-                </div>
-                
-                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Thumbnail ( 583 x 338 px)</label>    
-                  <div class="col-md-9">
-                    <img id="thumbnail_image_url" src="{{ old('image_url') ? Helper::showImage(old('image_url')) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="200">                    
-                    <button class="btn btn-default btn-sm btnSingleUpload" data-set="image_url" data-image="thumbnail_image" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                    <input type="hidden" name="image_url" id="image_url" value="{{ old('image_url') }}"/>
-                  </div>
-                  <div style="clear:both"></div>
-                </div>
-                <div style="clear:both"></div>                
-                <!-- textarea -->
-                <div class="form-group">
-                  <label>Mô tả</label>
-                  <textarea class="form-control" rows="6" name="description" id="description">{{ old('description') }}</textarea>
-                </div> 
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
-                      Bài viết nổi bật
-                    </label>
-                  </div>               
-                </div>
-                <div class="form-group">
-                  <label>Ẩn/hiện</label>
-                  <select class="form-control" name="status" id="status">                  
-                    <option value="0" {{ old('status') == 0 ? "selected" : "" }}>Ẩn</option>
-                    <option value="1" {{ old('status') == 1 || old('status') == NULL ? "selected" : "" }}>Hiện</option>                  
-                  </select>
-                </div>
-                <div class="input-group">
-                  <label>Tags</label>
-                  <select class="form-control select2" name="tags[]" id="tags" multiple="multiple">                  
-                    @if( $tagArr->count() > 0)
-                      @foreach( $tagArr as $value )
-                      <option value="{{ $value->id }}" {{ (old('tags') && in_array($value->id, old('tags'))) ? "selected" : "" }}>{{ $value->name }}</option>
-                      @endforeach
-                    @endif
-                  </select>
-                  <span class="input-group-btn">
-                    <button style="margin-top:24px" class="btn btn-primary btn-sm" id="btnAddTag" type="button" data-value="3">
-                      Tạo mới
-                    </button>
-                  </span>
-                </div>                
-                <div class="form-group" style="margin-top: 15px !important;">
-                  <label>Chi tiết</label>
-                  <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
-                  <div class="clearfix"></div>
-                  <textarea class="form-control" rows="4" name="content" id="content">{{ old('content') }}</textarea>
-                </div>
-                <input type="hidden" id="editor" value="content">                  
-            </div>          
-                              
-            <div class="box-footer">
-              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
-              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('articles.index')}}">Hủy</a>
+            </div>
+            <div class="box-footer">              
+              <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
+              <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index')}}">Hủy</a>
             </div>
             
         </div>
         <!-- /.box -->     
 
       </div>
-      <div class="col-md-4">
-        <!-- general form elements -->
+      <div class="col-md-4">      
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Thông tin SEO</h3>
           </div>
+
           <!-- /.box-header -->
             <div class="box-body">
               <div class="form-group">
@@ -140,7 +113,7 @@
               <!-- textarea -->
               <div class="form-group">
                 <label>Meta desciption</label>
-                <textarea class="form-control" rows="4" name="meta_description" id="meta_description">{{ old('meta_description') }}</textarea>
+                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ old('meta_description') }}</textarea>
               </div>  
 
               <div class="form-group">
@@ -149,7 +122,7 @@
               </div>  
               <div class="form-group">
                 <label>Custom text</label>
-                <textarea class="form-control" rows="4" name="custom_text" id="custom_text">{{ old('custom_text') }}</textarea>
+                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ old('custom_text') }}</textarea>
               </div>
             
         </div>
@@ -163,40 +136,8 @@
   </section>
   <!-- /.content -->
 </div>
+<input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
-<!-- Modal -->
-<div id="tagModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-    <form method="POST" action="{{ route('tag.ajax-save') }}" id="formAjaxTag">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tạo mới tag</h4>
-      </div>
-      <div class="modal-body" id="contentTag">
-          <input type="hidden" name="type" value="1">
-           <!-- text input -->
-          <div class="col-md-12">
-            <div class="form-group">
-              <label>Tags<span class="red-star">*</span> ( Cách nhau bằng dấu ;  )</label>
-              <textarea class="form-control" name="str_tag" id="str_tag" rows="4" >{{ old('str_tag') }}</textarea>
-            </div>
-            
-          </div>
-          <div classs="clearfix"></div>
-      </div>
-      <div style="clear:both"></div>
-      <div class="modal-footer" style="text-align:center">
-        <button type="button" class="btn btn-primary btn-sm" id="btnSaveTagAjax"> Save</button>
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" id="btnCloseModalTag">Close</button>
-      </div>
-      </form>
-    </div>
-
-  </div>
-</div>
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
@@ -206,92 +147,35 @@
     border : 1px solid red;
   }
   .select2-container--default .select2-selection--single{
-    height: 30px !important;
+    height: 35px !important;
   }
   .select2-container--default .select2-selection--multiple .select2-selection__choice{
     color: red !important;    
-    font-size: 18px !important; 
+    font-size: 20px !important; 
   }
   .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover{
     color: red !important;
     
-    font-size:18px !important;
+    font-size:20px !important;
   }
   .select2-container--default .select2-selection--multiple .select2-selection__rendered{
-    font-size:18px !important;
+    font-size:20px !important;
   }
 </style>
 @stop
 @section('javascript_page')
 <script type="text/javascript">
 
-$(document).on('click', '#btnSaveTagAjax', function(){
-    $.ajax({
-      url : $('#formAjaxTag').attr('action'),
-      data: $('#formAjaxTag').serialize(),
-      type : "post", 
-      success : function(str_id){          
-        $('#btnCloseModalTag').click();
-        $.ajax({
-          url : "{{ route('tag.ajax-list') }}",
-          data: { 
-            type : 1 ,
-            tagSelected : $('#tags').val(),
-            str_id : str_id
-          },
-          type : "get", 
-          success : function(data){
-              $('#tags').html(data);
-              $('#tags').select2('refresh');
-              
-          }
-        });
-      }
-    });
- }); 
-$(document).ready(function(){
-      $(".select2").select2();        
-      $('#btnAddTag').click(function(){
-          $('#tagModal').modal('show');
-      });      
-      $('#title').change(function(){
-         var name = $.trim( $(this).val() );
-         if( name != '' && $('#slug').val() == ''){
-            $.ajax({
-              url: $('#route_get_slug').val(),
-              type: "POST",
-              async: false,      
-              data: {
-                str : name
-              },              
-              success: function (response) {
-                if( response.str ){                  
-                  $('#slug').val( response.str );
-                }                
-              },
-              error: function(response){                             
-                  var errors = response.responseJSON;
-                  for (var key in errors) {
-                    
-                  }                
-              }
-            });
-         }
-      });
+    $(document).ready(function(){
+       $(".select2").select2();
       $('#parent_id').change(function(){
-        $.ajax({
-            url: $('#route_get_cate_by_parent').val(),
-            type: "POST",
-            async: false,
-            data: {          
-                parent_id : $(this).val(),
-                type : 'list'
-            },
-            success: function(data){
-                $('#cate_id').html(data).select2('refresh');                      
-            }
-        });
-      });     
+        location.href="{{ route('product.create') }}?parent_id=" + $(this).val();
+      })
+      
+      $('#dataForm').submit(function(){        
+        $('#btnSave').hide();
+        $('#btnLoading').show();
+      });  
     });
     
 </script>

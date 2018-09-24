@@ -163,7 +163,7 @@ class ArticlesController extends Controller
         $detail = Articles::find($id);
         if( Auth::user()->role < 3 ){
             if($detail->created_user != Auth::user()->id){
-                return redirect()->route('product.index');
+                return redirect()->route('articles.index');
             }
         }
         $cateArr = ArticlesCate::where('type', 1)->get();    

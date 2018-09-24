@@ -4,11 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Sản phẩm mới
+    Kho máy mới 
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'product.index' ) }}">Sản phẩm mới</a></li>
+    <li><a href="{{ route( 'product.kho' ) }}">Kho máy mới</a></li>
     <li class="active">Danh sách</li>
   </ol>
 </section>
@@ -19,15 +19,13 @@
     <div class="col-md-12">
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
-      @endif
-      <a href="{{ route('product.create', ['parent_id' => $arrSearch['parent_id'], 'cate_id' => $arrSearch['cate_id']]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      @endif      
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">
-           
+          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.kho') }}">
             <div class="form-group">
              
               <select class="form-control" name="parent_id" id="parent_id">
@@ -56,6 +54,9 @@
             <div class="form-group">
               <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> SALE</label>              
             </div>
+            <div class="form-group">
+              <label><input type="checkbox" name="out_of_stock" value="1" {{ $arrSearch['out_of_stock'] == 1 ? "checked" : "" }}> Hết hàng</label>              
+            </div>
                
             <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
@@ -73,7 +74,7 @@
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
           <form action="{{ route('cap-nhat-thu-tu') }}" method="POST">
-           @if( $items->count() > 0 && $arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0) 
+           @if( $items->count() > 0 && $arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0 ) 
           <button type="submit" class="btn btn-warning btn-sm">Cập nhật thứ tự</button>
           @endif
             {{ csrf_field() }}
@@ -81,12 +82,9 @@
           <table class="table table-bordered" id="table-list-data">
             <tr>
               <th style="width: 1%">#</th>
-              @if($arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0)
-              <th style="width: 1%;white-space:nowrap">Thứ tự</th>
-              @endif
-              <th width="100px">Hình ảnh</th>
-              <th style="text-align:left">Thông tin sản phẩm</th>                              
-              <th width="100px" style="text-align:center">Nổi bật</th>
+              <th style="text-align:left">Tên sản phẩm</th>
+              <th style="text-align:right">Giá</th>                              
+              <th width="100px" style="text-align:center">Hết hàng</th>
               <th width="100px" style="text-align:right">Số lượng</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
@@ -99,22 +97,13 @@
                 ?>
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
-                @if($arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0 )
-                <td style="vertical-align:middle;text-align:center">
-                 <input type="text" name="display_order[]" value="{{ $item->display_order}}" class="form-control" style="width:60px">
-                    <input type="hidden" name="id[]" value="{{ $item->id }}">
-                </td>
-                @endif
-                <td>
-                  <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_url ? Helper::showImage($item->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{{ $item->name }}" title="{{ $item->name }}" />
-                </td>
                 <td>                  
-                  {{ $item->code }} - <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a> &nbsp; @if( $item->is_hot == 1 )
-                  <label class="label label-danger">HOT</label>
-                  @endif<br />
-                  <strong style="color:#337ab7;font-style:italic"> {{ $item->ten_loai }} / {{ $item->ten_cate }}</strong>
+                  <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name }} {{ $item->name_extend }}</a>
                  <p style="margin-top:10px">
-                    @if( $item->is_sale == 1)
+                    
+                  </p>                  
+                </td>
+                <td class="text-right">@if( $item->is_sale == 1)
                    <b style="color:red">                  
                     {{ number_format($item->price_sale) }}
                    </b>
@@ -125,19 +114,13 @@
                     <b style="color:red">                  
                     {{ number_format($item->price) }}
                    </b>
-                    @endif 
-                  </p>                  
-                </td>
+                    @endif </td>
                 <td style="text-align:center">
-                  <input type="checkbox" data-id="{{ $item->id }}" data-col="is_hot" data-table="product" class="change-value" value="1" {{ $item->is_hot == 1  ? "checked" : "" }}>
+                  <input type="checkbox" data-id="{{ $item->id }}" data-col="out_of_stock" data-table="product" class="change-value" value="1" {{ $item->out_of_stock == 1  ? "checked" : "" }}>
                 </td>
                 <td style="text-align:right">{{ number_format($item->inventory) }}</td>
                 <td style="white-space:nowrap; text-align:right">
-                  <a class="btn btn-default btn-sm" href="{{ route('product-detail', [Helper::getParentSlug($item), $item->slug] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                  
-                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
-
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
-
+                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>
                 </td>
               </tr> 
               @endforeach
@@ -219,7 +202,7 @@ $(document).ready(function(){
     $('#cate_id').val('');
     $('#searchForm').submit();
   });
-  $('#cate_id').change(function(){
+  $('#cate_id, #is_old').change(function(){
     $('#searchForm').submit();
   });
   $('#table-list-data tbody').sortable({
