@@ -142,6 +142,18 @@ $(document).ready(function(){
   if($('#content').length == 1){
     CKEDITOR.replace('content');
   }
+  if($('#ground').length == 1){
+    CKEDITOR.replace('ground');
+  }
+  if($('#position').length == 1){
+    CKEDITOR.replace('position');
+  }
+  if($('#process').length == 1){
+    CKEDITOR.replace('process');
+  }
+  if($('#utilities').length == 1){
+    CKEDITOR.replace('utilities');
+  }
   $('#dataForm #name').change(function(){
        var name = $.trim( $(this).val() );         
         $.ajax({

@@ -4,11 +4,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Sản phẩm mới
+    Căn hộ
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'product.index' ) }}">Sản phẩm mới</a></li>
+    <li><a href="{{ route( 'articles.index' ) }}">Căn hộ</a></li>
     <li class="active">Danh sách</li>
   </ol>
 </section>
@@ -20,124 +20,80 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('product.create', ['parent_id' => $arrSearch['parent_id'], 'cate_id' => $arrSearch['cate_id']]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('articles.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
-          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">
-           
+          <form class="form-inline" role="form" method="GET" action="{{ route('articles.index') }}">
             <div class="form-group">
-             
-              <select class="form-control" name="parent_id" id="parent_id">
-                <option value="">--Danh mục cha--</option>
-                @foreach( $cateParentList as $value )
-                <option value="{{ $value->id }}" {{ $value->id == $arrSearch['parent_id'] ? "selected" : "" }}>{{ $value->name }}</option>
-                @endforeach
-              </select>
+              <label for="email">Từ khóa :</label>
+              <input type="text" class="form-control" name="title" value="{{ $title }}">
             </div>
-              <div class="form-group">
-              
-
-              <select class="form-control" name="cate_id" id="cate_id">
-                <option value="">--Danh mục con--</option>
-                @foreach( $cateArr as $value )
-                <option value="{{ $value->id }}" {{ $value->id == $arrSearch['cate_id'] ? "selected" : "" }}>{{ $value->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">              
-              <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}" placeholder="Tên sản phẩm...">
-            </div>           
-            <div class="form-group">
-              <label><input type="checkbox" name="is_hot" value="1" {{ $arrSearch['is_hot'] == 1 ? "checked" : "" }}> Nổi bật</label>              
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> SALE</label>              
-            </div>
-               
-            <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
+            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
           </form>         
         </div>
       </div>
       <div class="box">
 
         <div class="box-header with-border">
-          <h3 class="box-title">Danh sách ( {{ $items->total() }} sản phẩm )</h3>
+          <h3 class="box-title">Danh sách ( <span class="value">{{ $items->total() }} căn hộ )</span></h3>
         </div>
         
         <!-- /.box-header -->
         <div class="box-body">
           <div style="text-align:center">
-           {{ $items->appends( $arrSearch )->links() }}
+            {{ $items->appends( ['cate_id' => $cate_id, 'title' => $title] )->links() }}
           </div>  
-          <form action="{{ route('cap-nhat-thu-tu') }}" method="POST">
-           @if( $items->count() > 0 && $arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0) 
-          <button type="submit" class="btn btn-warning btn-sm">Cập nhật thứ tự</button>
-          @endif
-            {{ csrf_field() }}
-            <input type="hidden" name="table" value="product">
           <table class="table table-bordered" id="table-list-data">
             <tr>
-              <th style="width: 1%">#</th>
-              @if($arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0)
-              <th style="width: 1%;white-space:nowrap">Thứ tự</th>
-              @endif
-              <th width="100px">Hình ảnh</th>
-              <th style="text-align:left">Thông tin sản phẩm</th>                              
-              <th width="100px" style="text-align:center">Nổi bật</th>
-              <th width="100px" style="text-align:right">Số lượng</th>
+              <th style="width: 1%">#</th>              
+              <th>Thumbnail</th>
+              <th>Tiêu đề</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
             @if( $items->count() > 0 )
               <?php $i = 0; ?>
               @foreach( $items as $item )
-                <?php $i ++; 
-
-                ?>
+                <?php $i ++; ?>
               <tr id="row-{{ $item->id }}">
-                <td><span class="order">{{ $i }}</span></td>
-                @if($arrSearch['is_hot'] == 1 && $arrSearch['parent_id'] > 0 )
-                <td style="vertical-align:middle;text-align:center">
-                 <input type="text" name="display_order[]" value="{{ $item->display_order}}" class="form-control" style="width:60px">
-                    <input type="hidden" name="id[]" value="{{ $item->id }}">
-                </td>
-                @endif
+                <td><span class="order">{{ $i }}</span></td>       
                 <td>
-                  <img class="img-thumbnail lazy" width="80" data-original="{{ $item->image_url ? Helper::showImage($item->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{{ $item->name }}" title="{{ $item->name }}" />
-                </td>
+                  <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->image_url)}}" width="145">
+                </td>        
                 <td>                  
-                  {{ $item->code }} - <a style="color:#333;font-weight:bold" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a> &nbsp; @if( $item->is_hot == 1 )
+                  <a style="font-size:17px" href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
+                  
+                  @if( $item->is_hot == 1 )
                   <label class="label label-danger">HOT</label>
-                  @endif<br />
-                  <strong style="color:#337ab7;font-style:italic"> {{ $item->ten_loai }} / {{ $item->ten_cate }}</strong>
-                 <p style="margin-top:10px">
-                    @if( $item->is_sale == 1)
-                   <b style="color:red">                  
-                    {{ number_format($item->price_sale) }}
-                   </b>
-                   <span style="text-decoration: line-through">
-                    {{ number_format($item->price) }}  
-                    </span>
-                    @else
-                    <b style="color:red">                  
-                    {{ number_format($item->price) }}
-                   </b>
-                    @endif 
-                  </p>                  
+                  @endif
+                  <div class="block-author">
+                      <ul>
+                        <li>
+                          <span>Tác giả:</span>
+                          <span class="name">{!! $item->createdUser->display_name !!}</span>
+                        </li>
+                        <li>
+                            <span>Ngày tạo:</span>
+                          <span class="name">{!! date('d/m/Y H:i', strtotime($item->created_at)) !!}</span>
+                          
+                        </li>
+                         <li>
+                            <span>Cập nhật lần cuối:</span>
+                          <span class="name">{!! $item->updatedUser->display_name !!} ( {!! date('d/m/Y H:i', strtotime($item->updated_at)) !!} )</span>          
+                        </li>                          
+                      </ul>
+                    </div>
+                  <p>{{ $item->description }}</p>
                 </td>
-                <td style="text-align:center">
-                  <input type="checkbox" data-id="{{ $item->id }}" data-col="is_hot" data-table="product" class="change-value" value="1" {{ $item->is_hot == 1  ? "checked" : "" }}>
-                </td>
-                <td style="text-align:right">{{ number_format($item->inventory) }}</td>
-                <td style="white-space:nowrap; text-align:right">
-                  <a class="btn btn-default btn-sm" href="{{ route('product-detail', [Helper::getParentSlug($item), $item->slug] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                  
-                  <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
-
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
-
+                <td style="white-space:nowrap"> 
+                  <a class="btn btn-default btn-sm" href="{{ route('news-detail', [$item->slug]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
+                  <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
+                  
+                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'articles.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                  
                 </td>
               </tr> 
               @endforeach
@@ -149,9 +105,8 @@
 
           </tbody>
           </table>
-          </form>
           <div style="text-align:center">
-           {{ $items->appends( $arrSearch )->links() }}
+            {{ $items->appends( ['cate_id' => $cate_id, 'title' => $title] )->links() }}
           </div>  
         </div>        
       </div>
@@ -162,13 +117,9 @@
 </section>
 <!-- /.content -->
 </div>
-<style type="text/css">
-#searchForm div{
-  margin-right: 7px;
-}
-</style>
 @stop
 @section('javascript_page')
+
 <script type="text/javascript">
 function callDelete(name, url){  
   swal({
@@ -185,43 +136,25 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
-  $('.change-value').change(function(){
-    var obj = $(this);
-    var val = 0;
-    if(obj.prop('checked') == true){
-      var val = 1;
-    }
+    $('#cate_id').change(function(){
+      $(this).parents('form').submit();
+    });
+  $('#parent_id').change(function(){
     $.ajax({
-      url : "{{ route('change-value') }}",
-      type :'POST',
-      data : {
-        id : obj.data('id'),
-        value : val,
-        column : obj.data('col'),
-        table : obj.data('table')
-      },
-      success : function(data){
-        console.log(data);
-      }
+        url: $('#route_get_cate_by_parent').val(),
+        type: "POST",
+        async: false,
+        data: {          
+            parent_id : $(this).val(),
+            type : 'list'
+        },
+        success: function(data){
+            $('#cate_id').html(data).select2('refresh');                      
+        }
     });
   });
-  $('input.submitForm').click(function(){
-    var obj = $(this);
-    if(obj.prop('checked') == true){
-      obj.val(1);      
-    }else{
-      obj.val(0);
-    } 
-    obj.parent().parent().parent().submit(); 
-  });
-  
-  $('#parent_id').change(function(){
-    $('#cate_id').val('');
-    $('#searchForm').submit();
-  });
-  $('#cate_id').change(function(){
-    $('#searchForm').submit();
-  });
+  $('.select2').select2();
+
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',
         handle: ".move",
@@ -240,7 +173,7 @@ $(document).ready(function(){
                 strTemp = rows[i].id;
                 strOrder += strTemp.replace('row-','') + ";";
             }     
-            updateOrder("product", strOrder);
+            updateOrder("loai_sp", strOrder);
         }
     });
 });

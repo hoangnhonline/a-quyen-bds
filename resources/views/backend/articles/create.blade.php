@@ -4,11 +4,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Sản phẩm mới    
+      Căn hộ    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('product.index') }}">Sản phẩm mới</a></li>
+      <li><a href="{{ route('product.index') }}">Căn hộ</a></li>
       <li class="active">Thêm mới</li>
     </ol>
   </section>
@@ -52,20 +52,38 @@
                    
                     <div role="tabpanel" class="tab-pane active" id="home">                                                                        
                         <div class="form-group" >                  
-                          <label>Tên <span class="red-star">*</span></label>
+                          <label>Tên dự án <span class="red-star">*</span></label>
                           <input type="text" class="form-control req" name="name" id="name" value="{{ old('name') }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
                         </div>
-                        <div class="clearfix"></div>                        
+                        <div class="clearfix"></div> 
                         <div class="form-group" style="margin-top: 15px !important;">
-                        <label>Chi tiết</label>
-                        <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
-                        <div class="clearfix"></div>
-                        <textarea class="form-control" rows="4" name="content" id="content">{{ old('content') }}</textarea>
-                      </div>
+                          <label>Vị trí</label>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <div class="clearfix"></div>
+                          <textarea class="form-control" rows="4" name="position" id="position">{{ old('position') }}</textarea>
+                        </div>
+                        <div class="form-group" style="margin-top: 15px !important;">
+                          <label>Tiện ích</label>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <div class="clearfix"></div>
+                          <textarea class="form-control" rows="4" name="utilities" id="utilities">{{ old('utilities') }}</textarea>
+                        </div>
+                        <div class="form-group" style="margin-top: 15px !important;">
+                          <label>Mặt bằng</label>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <div class="clearfix"></div>
+                          <textarea class="form-control" rows="4" name="ground" id="ground">{{ old('ground') }}</textarea>
+                        </div>                       
+                        <div class="form-group" style="margin-top: 15px !important;">
+                          <label>Tiến độ</label>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <div class="clearfix"></div>
+                          <textarea class="form-control" rows="4" name="process" id="process">{{ old('process') }}</textarea>
+                        </div>
                         <div style="margin-bottom:10px;clear:both"></div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
