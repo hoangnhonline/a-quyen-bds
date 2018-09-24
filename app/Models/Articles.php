@@ -62,4 +62,12 @@ class Articles extends Model  {
     {
         return $this->belongsTo('App\Models\ArticlesCate', 'cate_id');
     }
+    public function thumbnail()
+    {
+        return $this->belongsTo('App\Models\ArticlesImg', 'thumbnail_id');
+    }
+    public function images()
+    {
+        return $this->hasMany('App\Models\ArticlesImg', 'articles_id');
+    }
 }

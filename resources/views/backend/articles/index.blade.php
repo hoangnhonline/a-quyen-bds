@@ -44,7 +44,7 @@
         <!-- /.box-header -->
         <div class="box-body">
           <div style="text-align:center">
-            {{ $items->appends( ['cate_id' => $cate_id, 'title' => $title] )->links() }}
+            {{ $items->appends( ['title' => $title] )->links() }}
           </div>  
           <table class="table table-bordered" id="table-list-data">
             <tr>
@@ -61,9 +61,9 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>       
                 <td>
-                  <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->image_url)}}" width="145">
+                  <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->thumbnail->image_url)}}" width="145">
                 </td>        
-                <td>                  
+                <td style="vertical-align: top">                  
                   <a style="font-size:17px" href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
                   
                   @if( $item->is_hot == 1 )
@@ -73,7 +73,7 @@
                       <ul>
                         <li>
                           <span>Tác giả:</span>
-                          <span class="name">{!! $item->createdUser->display_name !!}</span>
+                          <span class="name">{!! $item->createdUser->full_name !!}</span>
                         </li>
                         <li>
                             <span>Ngày tạo:</span>
@@ -82,13 +82,12 @@
                         </li>
                          <li>
                             <span>Cập nhật lần cuối:</span>
-                          <span class="name">{!! $item->updatedUser->display_name !!} ( {!! date('d/m/Y H:i', strtotime($item->updated_at)) !!} )</span>          
+                          <span class="name">{!! $item->updatedUser->full_name !!} ( {!! date('d/m/Y H:i', strtotime($item->updated_at)) !!} )</span>          
                         </li>                          
                       </ul>
-                    </div>
-                  <p>{{ $item->description }}</p>
+                    </div>                  
                 </td>
-                <td style="white-space:nowrap"> 
+                <td style="white-space:nowrap;vertical-align: top"> 
                   <a class="btn btn-default btn-sm" href="{{ route('news-detail', [$item->slug]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
                   <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   

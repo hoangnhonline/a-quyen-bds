@@ -86,7 +86,7 @@ class ArticlesController extends Controller
             'slug.required' => 'Bạn chưa nhập slug',
         ]);
        
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;                        
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
         
         $dataArr['alias'] = str_slug($dataArr['title'], " ");
         $dataArr['slug'] = str_slug($dataArr['title'], "-");
@@ -95,7 +95,8 @@ class ArticlesController extends Controller
 
         $dataArr['created_user'] = Auth::user()->id;
 
-        $dataArr['updated_user'] = Auth::user()->id;        
+        $dataArr['updated_user'] = Auth::user()->id;  
+
         $rs = Articles::create($dataArr);
 
         $articles_id = $rs->id;       
@@ -180,42 +181,32 @@ class ArticlesController extends Controller
     public function update(Request $request)
     {
         $dataArr = $request->all();
-
-        $this->validate($request,[            
-            'cate_id' => 'required',            
-            'title' => 'required'            
+        
+        $this->validate($request,[
+            'title' => 'required',
+            'slug' => 'required' ,                                 
         ],
-        [            
-            'cate_id.required' => 'Bạn chưa chọn danh mục',            
-            'title.required' => 'Bạn chưa nhập tiêu đề'           
-        ]);       
+        [
+            'title.required' => 'Bạn chưa nhập tên dự án',
+            'slug.required' => 'Bạn chưa nhập slug',
+        ]);
+       
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;      
         
-        $dataArr['alias'] = str_slug($dataArr['title'], " ");      
-        $dataArr['slug'] = str_slug($dataArr['title']);
-        
-        $dataArr['type'] = 1;
+        $dataArr['alias'] = str_slug($dataArr['title'], " ");
+        $dataArr['slug'] = str_slug($dataArr['title'], "-");
+
         $dataArr['updated_user'] = Auth::user()->id;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
-        $dataArr['content'] = str_replace("[Caption]", "", $dataArr['content']);
+            
         $model = Articles::find($dataArr['id']);
 
         $model->update($dataArr);
         
-        $this->storeMeta( $dataArr['id'], $dataArr['meta_id'], $dataArr);
+        $articles_id = $dataArr['id'];
 
-        TagObjects::where(['object_id' => $dataArr['id'], 'type' => 1])->delete();
-        // xu ly tags
-        if( !empty( $dataArr['tags'] ) ){
-                       
-            foreach ($dataArr['tags'] as $tag_id) {
-                $modelTagObject = new TagObjects; 
-                $modelTagObject->object_id = $dataArr['id'];
-                $modelTagObject->tag_id  = $tag_id;
-                $modelTagObject->type = 1;
-                $modelTagObject->save();
-            }
-        }
-        Session::flash('message', 'Cập nhật thành công');        
+        $this->storeMeta( $articles_id, $dataArr['meta_id'], $dataArr);
+        $this->storeImage( $articles_id, $dataArr);
+        Session::flash('message', 'Chỉnh sửa thành công');
 
         return redirect()->route('articles.edit', $dataArr['id']);
     }
