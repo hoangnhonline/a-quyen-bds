@@ -8,6 +8,7 @@
     <title>BDS Dong SaiGon</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/slick.css">
 </head>
 <body class="home">
     <!-- header -->
@@ -46,6 +47,9 @@
     </div><!-- End header -->
     <div class="banner">
         <img src="images/banner1.png" alt="Bat dong san dong sai gon">
+        <img src="images/banner2.png" alt="Bat dong san dong sai gon">
+        <img src="images/banner3.png" alt="Bat dong san dong sai gon">
+        <img src="images/banner4.png" alt="Bat dong san dong sai gon">
     </div>
 
     <div class="breadcrumb">
@@ -126,12 +130,15 @@
             <p>Phát triển bởi BDS Dong Sai Gon</p>
         </div>
     </div><!-- End Footer -->
-
+    <div class="toTop">
+        <img src="images/totop.png" alt="">
+    </div>
     <!-- SCRIPT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/atgNav.slick.js"></script>
     <script>
         $(document).ready(function () {
+            //menu mobile
             $('.mnu-sp').on('click',function () {
                 if(!$(this).hasClass('active')) {
                     $(this).addClass('active');
@@ -146,7 +153,22 @@
                 $('html,body').animate({
                     scrollTop: $("#contact").offset().top
                 }, 'slow');
-            })
+            });
+
+            var w = $(window).width();
+            if(w<=1024) {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() != 0) {
+                        $('.toTop').fadeIn();
+                    } else {
+                        $('.toTop').fadeOut();
+                    }
+                });
+
+                $('.toTop').click(function() {
+                    $('body,html').animate({ scrollTop: 0 }, 800);
+                });
+            }
         })
     </script>
 </body>
