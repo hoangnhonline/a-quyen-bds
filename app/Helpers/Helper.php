@@ -179,7 +179,7 @@ class Helper
     }
     public static function showImage($image_url, $type = 'original'){
 
-        //return strpos($image_url, 'http') === false ? config('lahava.upload_url') . $type . '/' . $image_url : $image_url;        
+        //return strpos($image_url, 'http') === false ? config('dongsg.upload_url') . $type . '/' . $image_url : $image_url;        
         if(strpos($image_url, 'dia/catalog')){            
             return env('APP_URL') ."/public".$image_url;
         }else{
@@ -196,7 +196,7 @@ class Helper
         }else{
             $tmpArrImg = explode('/', $image_url);
                             
-            $image_url = config('lahava.upload_url_thumbs_2').end($tmpArrImg); 
+            $image_url = config('dongsg.upload_url_thumbs_2').end($tmpArrImg); 
                 
             return $image_url;
         }
@@ -210,7 +210,7 @@ class Helper
         }else{     
             $tmpArrImg = explode('/', $image_url);
                             
-            $image_url = config('lahava.upload_url_thumbs_3').end($tmpArrImg); 
+            $image_url = config('dongsg.upload_url_thumbs_3').end($tmpArrImg); 
             
             return $image_url;
         }
@@ -225,7 +225,7 @@ class Helper
         }else{
             $tmpArrImg = explode('/', $image_url);
                         
-            return $image_url = config('lahava.upload_url_thumbs_2').end($tmpArrImg);
+            return $image_url = config('dongsg.upload_url_thumbs_2').end($tmpArrImg);
         }
          
         
@@ -502,8 +502,8 @@ class Helper
 
         $basePath = $date_dir == true ? $basePath .= date('Y/m/d'). '/'  : $basePath = $basePath;        
         
-        $desPath = config('lahava.upload_path'). $basePath;
-        $desThumbsPath = config('lahava.upload_thumbs_path'). $basePath;
+        $desPath = config('dongsg.upload_path'). $basePath;
+        $desThumbsPath = config('dongsg.upload_thumbs_path'). $basePath;
         //set name for file
         $fileName = $file->getClientOriginalName();
         

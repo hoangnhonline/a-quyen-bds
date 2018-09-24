@@ -136,7 +136,8 @@ $(document).ready(function(){
   $('.btnMultiUpload').click(function(){        
     multiUpload();
   });
-  $('.btnUploadEditor').click(function(){        
+  $('.btnUploadEditor').click(function(){       
+    $('#editor').val($(this).data('editor')); 
     uploadToEditor();
   });
   if($('#content').length == 1){
@@ -153,6 +154,9 @@ $(document).ready(function(){
   }
   if($('#utilities').length == 1){
     CKEDITOR.replace('utilities');
+  }
+  if($('#description').length == 1){
+    CKEDITOR.replace('description');
   }
   $('#dataForm #name').change(function(){
        var name = $.trim( $(this).val() );         

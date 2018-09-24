@@ -185,7 +185,7 @@ class ProductController extends Controller
         }              
     }   
 
-    public function storeImage($id, $dataArr){        
+    public function storeImage($id, $dataArr){     
         //process old image
         $imageIdArr = isset($dataArr['image_id']) ? $dataArr['image_id'] : [];
         $hinhXoaArr = ProductImg::where('product_id', $id)->whereNotIn('id', $imageIdArr)->lists('id');
@@ -193,7 +193,7 @@ class ProductController extends Controller
         {
             foreach ($hinhXoaArr as $image_id_xoa) {
                 $model = ProductImg::find($image_id_xoa);
-                $urlXoa = config('lahava.upload_path')."/".$model->image_url;
+                $urlXoa = config('dongsg.upload_path')."/".$model->image_url;
                 if(is_file($urlXoa)){
                     unlink($urlXoa);
                 }
@@ -223,7 +223,7 @@ class ProductController extends Controller
 
                         $tmpArrImg = explode('/', $origin_img);
                         
-                        $new_img = config('lahava.upload_thumbs_path').end($tmpArrImg);
+                        $new_img = config('dongsg.upload_thumbs_path').end($tmpArrImg);
 
                         if($w_img/$h_img > 480/720){
 
@@ -235,7 +235,7 @@ class ProductController extends Controller
                                     $constraint->aspectRatio();
                             })->crop(480, 720)->save($new_img);
                         }
-                        $new_img = config('lahava.upload_thumbs_path_2').end($tmpArrImg);
+                        $new_img = config('dongsg.upload_thumbs_path_2').end($tmpArrImg);
                         if($w_img/$h_img > 75/113){
 
                             Image::make($origin_img)->resize(null, 113, function ($constraint) {

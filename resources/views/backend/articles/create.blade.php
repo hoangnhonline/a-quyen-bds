@@ -8,15 +8,15 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('product.index') }}">Căn hộ</a></li>
+      <li><a href="{{ route('articles.index') }}">Căn hộ</a></li>
       <li class="active">Thêm mới</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('product.index') }}" style="margin-bottom:5px">Quay lại</a>
-    <form role="form" method="POST" action="{{ route('product.store') }}" id="dataForm" class="productForm">
+    <a class="btn btn-default btn-sm" href="{{ route('articles.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <form role="form" method="POST" action="{{ route('articles.store') }}" id="dataForm" class="productForm">
     <input type="hidden" name="is_copy" value="1">
     <div class="row">
       <!-- left column -->
@@ -53,7 +53,7 @@
                     <div role="tabpanel" class="tab-pane active" id="home">                                                                        
                         <div class="form-group" >                  
                           <label>Tên dự án <span class="red-star">*</span></label>
-                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name') }}">
+                          <input type="text" class="form-control req" name="title" id="title" value="{{ old('title') }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
@@ -61,33 +61,39 @@
                         </div>
                         <div class="clearfix"></div> 
                         <div class="form-group" style="margin-top: 15px !important;">
+                          <label>Mô tả ngắn</label>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;" data-editor="description">Chèn ảnh</button>
+                          <div class="clearfix"></div>
+                          <textarea class="form-control" rows="4" name="description" id="description">{{ old('position') }}</textarea>
+                        </div>
+                        <div class="form-group" style="margin-top: 15px !important;">
                           <label>Vị trí</label>
-                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;" data-editor="position">Chèn ảnh</button>
                           <div class="clearfix"></div>
                           <textarea class="form-control" rows="4" name="position" id="position">{{ old('position') }}</textarea>
                         </div>
                         <div class="form-group" style="margin-top: 15px !important;">
                           <label>Tiện ích</label>
-                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;" data-editor="utilities">Chèn ảnh</button>
                           <div class="clearfix"></div>
                           <textarea class="form-control" rows="4" name="utilities" id="utilities">{{ old('utilities') }}</textarea>
                         </div>
                         <div class="form-group" style="margin-top: 15px !important;">
                           <label>Mặt bằng</label>
-                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;" data-editor="ground">Chèn ảnh</button>
                           <div class="clearfix"></div>
                           <textarea class="form-control" rows="4" name="ground" id="ground">{{ old('ground') }}</textarea>
                         </div>                       
                         <div class="form-group" style="margin-top: 15px !important;">
                           <label>Tiến độ</label>
-                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;">Chèn ảnh</button>
+                          <button class="btnUploadEditor btn btn-info" type="button" style="float:right;margin-bottom: 3px !important;" data-editor="process">Chèn ảnh</button>
                           <div class="clearfix"></div>
                           <textarea class="form-control" rows="4" name="process" id="process">{{ old('process') }}</textarea>
                         </div>
                         <div style="margin-bottom:10px;clear:both"></div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                    
+                    <input type="hidden" id="editor" value="">
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          
@@ -109,7 +115,7 @@
             <div class="box-footer">              
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('articles.index')}}">Hủy</a>
             </div>
             
         </div>
@@ -187,7 +193,7 @@
     $(document).ready(function(){
        $(".select2").select2();
       $('#parent_id').change(function(){
-        location.href="{{ route('product.create') }}?parent_id=" + $(this).val();
+        location.href="{{ route('articles.create') }}?parent_id=" + $(this).val();
       })
       
       $('#dataForm').submit(function(){        

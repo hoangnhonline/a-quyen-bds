@@ -24,21 +24,26 @@ class Articles extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['title', 
-                            'slug', 
-                            'alias', 
-                            'cate_id', 
-                            'is_hot', 
-                            'lahava_link',                            
-                            'type', 
-                            'status', 
-                            'display_order', 
-                            'description', 
-                            'image_url', 
-                            'content',
-                            'meta_id', 
-                            'created_user', 
-                            'updated_user'];
+    protected $fillable = [
+        'title', 
+        'slug', 
+        'alias', 
+        'description', 
+        'image_list',
+        'cate_id', 
+        'thumbnail_id',                            
+        'position', 
+        'status', 
+        'display_order', 
+        'utilities', 
+        'ground', 
+        'process',
+        'is_hot', 
+        'content',
+        'meta_id', 
+        'created_user', 
+        'updated_user'
+    ];
     public static function getListTag($id){
         $query = TagObjects::where(['object_id' => $id, 'tag_objects.type' => 1])
             ->join('tag', 'tag.id', '=', 'tag_objects.tag_id')        
@@ -49,7 +54,7 @@ class Articles extends Model  {
     {
         return $this->belongsTo('App\Models\Account', 'created_user');
     }
-     public function updatedUser()
+    public function updatedUser()
     {
         return $this->belongsTo('App\Models\Account', 'updated_user');
     }

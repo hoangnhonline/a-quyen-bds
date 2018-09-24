@@ -10,6 +10,7 @@ use App\Models\ArticlesCate;
 use App\Models\Tag;
 use App\Models\TagObjects;
 use App\Models\Articles;
+use App\Models\ArticlesImg;
 use App\Models\MetaData;
 use App\Models\Rating;
 
@@ -29,7 +30,7 @@ class ArticlesController extends Controller
 
         $title = isset($request->title) && $request->title != '' ? $request->title : '';
         
-        $query = Articles::where('type', 1);
+        $query = Articles::where('status', 1);
 
         if( $cate_id > 0){
             $query->where('cate_id', $cate_id);
@@ -75,53 +76,37 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         $dataArr = $request->all();
-        
-        $this->validate($request,[            
-            'cate_id' => 'required',            
-            'title' => 'required'            
+
+        $this->validate($request,[
+            'title' => 'required',
+            'slug' => 'required' ,                                 
         ],
-        [            
-            'cate_id.required' => 'Bạn chưa chọn danh mục',            
-            'title.required' => 'Bạn chưa nhập tiêu đề'           
-        ]);       
+        [
+            'title.required' => 'Bạn chưa nhập tên dự án',
+            'slug.required' => 'Bạn chưa nhập slug',
+        ]);
+       
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;                        
         
-        $dataArr['alias'] = str_slug($dataArr['title'], " ");      
-        $dataArr['slug'] = str_slug($dataArr['title']);
+        $dataArr['alias'] = str_slug($dataArr['title'], " ");
+        $dataArr['slug'] = str_slug($dataArr['title'], "-");
+
+        $dataArr['status'] = 1;     
+
         $dataArr['created_user'] = Auth::user()->id;
 
-        $dataArr['updated_user'] = Auth::user()->id;
-        $dataArr['type'] = 1;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
-        $dataArr['content'] = str_replace("[Caption]", "", $dataArr['content']);
+        $dataArr['updated_user'] = Auth::user()->id;        
         $rs = Articles::create($dataArr);
 
-        $object_id = $rs->id;
+        $articles_id = $rs->id;       
 
-        $this->storeMeta( $object_id, 0, $dataArr);
-
-        // xu ly tags
-        if( !empty( $dataArr['tags'] ) && $object_id ){
-            
-
-            foreach ($dataArr['tags'] as $tag_id) {
-                $model = new TagObjects;
-                $model->object_id = $object_id;
-                $model->tag_id  = $tag_id;
-                $model->type = 1;
-                $model->save();
-            }
-        }
-
-        // store Rating
-        for($i = 1; $i <= 5 ; $i++ ){
-            $amount = $i == 5 ? 1 : 0;
-            Rating::create(['score' => $i, 'object_id' => $object_id, 'object_type' => 2, 'amount' => $amount]);
-        }
-
+        $this->storeImage( $articles_id, $dataArr);
+        $this->storeMeta($articles_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới thành công');
 
-        return redirect()->route('articles.index',['cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('articles.index');
     }
+
     public function storeMeta( $id, $meta_id, $dataArr ){
        
         $arrData = [ 'title' => $dataArr['meta_title'], 'description' => $dataArr['meta_description'], 'keywords'=> $dataArr['meta_keywords'], 'custom_text' => $dataArr['custom_text'], 'updated_user' => Auth::user()->id ];
@@ -233,6 +218,77 @@ class ArticlesController extends Controller
         Session::flash('message', 'Cập nhật thành công');        
 
         return redirect()->route('articles.edit', $dataArr['id']);
+    }
+
+    public function storeImage($id, $dataArr){     
+        //process old image
+        $imageIdArr = isset($dataArr['image_id']) ? $dataArr['image_id'] : [];
+        $hinhXoaArr = ArticlesImg::where('articles_id', $id)->whereNotIn('id', $imageIdArr)->lists('id');
+        if( $hinhXoaArr )
+        {
+            foreach ($hinhXoaArr as $image_id_xoa) {
+                $model = ArticlesImg::find($image_id_xoa);
+                $urlXoa = config('dongsg.upload_path')."/".$model->image_url;
+                if(is_file($urlXoa)){
+                    unlink($urlXoa);
+                }
+                $model->delete();
+            }
+        }       
+
+        //process new image
+        if( isset( $dataArr['thumbnail_id'])){
+            $thumbnail_id = $dataArr['thumbnail_id'];
+
+            $imageArr = []; 
+
+            if( !empty( $dataArr['image_tmp_url'] )){
+
+                foreach ($dataArr['image_tmp_url'] as $k => $image_url) {
+                    
+                    $origin_img = base_path().$image_url;
+                    
+                    if( $image_url ){
+
+                        $imageArr['is_thumbnail'][] = $is_thumbnail = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
+
+                        $img = Image::make($origin_img);
+                        $w_img = $img->width();
+                        $h_img = $img->height();
+
+                        $tmpArrImg = explode('/', $origin_img);
+                        
+                        $new_img = config('dongsg.upload_thumbs_path').end($tmpArrImg);
+
+                        if($w_img/$h_img > 294/166){
+
+                            Image::make($origin_img)->resize(null, 166, function ($constraint) {
+                                    $constraint->aspectRatio();
+                            })->crop(294, 166)->save($new_img);
+                        }else{
+                            Image::make($origin_img)->resize(294, null, function ($constraint) {
+                                    $constraint->aspectRatio();
+                            })->crop(294, 166)->save($new_img);
+                        }
+
+                        $imageArr['name'][] = $image_url;
+                        
+                    }
+                }
+            }
+            if( !empty($imageArr['name']) ){
+                foreach ($imageArr['name'] as $key => $name) {
+                    $rs = ArticlesImg::create(['articles_id' => $id, 'image_url' => $name, 'display_order' => 1]);                
+                    $image_id = $rs->id;
+                    if( $imageArr['is_thumbnail'][$key] == 1){
+                        $thumbnail_id = $image_id;
+                    }
+                }
+            }
+            $model = Articles::find( $id );
+            $model->thumbnail_id = $thumbnail_id;
+            $model->save();
+        }
     }
 
     /**
