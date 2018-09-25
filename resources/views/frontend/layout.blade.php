@@ -162,7 +162,11 @@
                     scrollTop: $("#contact").offset().top
                 }, 'slow');
             });
-
+            @if(Session::has('message') || count($errors) > 0)
+            $('html,body').animate({
+                scrollTop: $("#contact").offset().top
+            }, 'slow');
+            @endif
             var w = $(window).width();
             if(w<=1024) {
                 $(window).scroll(function() {
