@@ -63,7 +63,7 @@
                     <ul class="list-unstyled clearfix">
                         <li @if($routeName == 'home') class="active" @endif><a href="{{ route('home') }}">Trang chủ</a></li>
                         <li @if($routeName == 'pages') class="active" @endif><a href="{{ route('pages', 'gioi-thieu-bat-dong-san-dong-sai-gon') }}">Giới thiệu</a></li>
-                        <li><a href="{{ route('can-ho') }}">Căn hộ</a></li>
+                        <li @if($routeName == 'can-ho') class="active" @endif><a href="{{ route('can-ho') }}">Căn hộ</a></li>
                         <li class="scrollToContact"><a href="javascript:;" class="contact-link">Liên hệ</a></li>
                     </ul>
                 </nav>
