@@ -45,7 +45,25 @@ class HomeController extends Controller
                                 'bannerList'
                                ));
     }
-    
+    public function canHo(Request $request){
+        Helper::counter(1, 3);    
+        
+        $articlesList = Articles::where('status', 1)->orderBy('id', 'desc')->get();
+      
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+        $seo = $settingArr;
+        
+        $seo['title'] = $seo['description'] = $seo['keywords'] = 'Căn hộ';
+
+        $socialImage = $settingArr['banner'];
+        $bannerList =  Banner::where(['object_id' => 1, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+        return view('frontend.can-ho', compact(
+                                'articlesList', 
+                                'socialImage', 
+                                'seo', 
+                                'bannerList'
+                               ));
+    }
     public function getNoti(){
         $countMess = 0;
         if(Session::get('userId') > 0){

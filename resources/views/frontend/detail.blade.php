@@ -4,9 +4,9 @@
 <div class="breadcrumb">
     <div class="container">
         <ul class="list-unstyled">
-            <li><a href="#">Trang chủ</a></li>
-            <li><a href="#">Căn hộ</a></li>
-            <li class="active">Căn hộ chi tiết</li>
+            <li><a href="{{ route('home') }}">Trang chủ</a></li>
+            <li><a href="{{ route('can-ho') }}">Căn hộ</a></li>
+            <li class="active">{!! $detail->title !!}</li>
         </ul>
     </div>
 </div>
