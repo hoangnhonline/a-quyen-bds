@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2018 at 10:05 AM
+-- Generation Time: Sep 25, 2018 at 08:19 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.0.29
 
@@ -34,13 +34,15 @@ CREATE TABLE `articles` (
   `slug` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `cate_id` int(11) NOT NULL COMMENT '999 : landing page',
-  `type` tinyint(1) NOT NULL DEFAULT '1',
+  `about` text,
+  `image_list` text,
+  `thumbnail_id` bigint(20) NOT NULL,
+  `position` text,
+  `utilities` text,
+  `ground` text,
+  `process` text,
   `content` text,
   `is_hot` tinyint(1) NOT NULL,
-  `project_id` int(11) DEFAULT NULL,
-  `tab_id` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL,
   `display_order` tinyint(4) NOT NULL,
   `meta_id` bigint(20) NOT NULL,
@@ -49,6 +51,15 @@ CREATE TABLE `articles` (
   `created_user` tinyint(4) NOT NULL,
   `updated_user` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `title`, `slug`, `alias`, `description`, `about`, `image_list`, `thumbnail_id`, `position`, `utilities`, `ground`, `process`, `content`, `is_hot`, `status`, `display_order`, `meta_id`, `created_at`, `updated_at`, `created_user`, `updated_user`) VALUES
+(1, 'Căn hộ 1', 'can-ho-1', 'can ho 1', '<ul>\r\n	<li>&aacute;dfgsadgsdgsdgas</li>\r\n	<li>sdgasdgasdgasd</li>\r\n	<li>sdgasdgsadgsa</li>\r\n	<li>sdgasdg</li>\r\n	<li>sdgasdgasdgas</li>\r\n	<li>sdgasdgasdgasdg</li>\r\n	<li>sdgasdgasdsgsdgsdgas</li>\r\n</ul>\r\n', 'Chủ đầu tư : VINGROUP', NULL, 16, '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 0, 1, 0, 2, '2018-09-25 09:35:02', '2018-09-25 10:50:01', 1, 1),
+(2, 'Căn hộ 2', 'can-ho-2', 'can ho 2', '<ul>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the', 'Chủ đầu tư : VINGROUP', NULL, 18, '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br />\r\n&nbsp;\r\n<table align=\"center\" border=\"0\" cellpadding=\"3\" cellspacing=\"0\" width=\"100%\">\r\n	<tbody>\r\n		<tr>\r\n			<td style=\"text-align:center\"><img src=\"/public/uploads/images/201809/a2-1492339382965-1537842498.jpg\" style=\"max-width: 100%;\" /></td>\r\n		</tr>\r\n		<tr>\r\n			<td>\r\n			<p style=\"text-align:center\">[Caption]</p>\r\n			</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 0, 1, 0, 3, '2018-09-25 09:35:42', '2018-09-25 13:01:12', 1, 1),
+(3, 'Căn hộ 3', 'can-ho-3', 'can ho 3', '<ul>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry</li>\r\n	<li><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the', 'Chủ đầu tư : VINGROUP', NULL, 11, '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '<strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', NULL, 0, 1, 0, 4, '2018-09-25 09:37:10', '2018-09-25 10:50:11', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -88,6 +99,32 @@ INSERT INTO `articles_cate` (`id`, `name`, `slug`, `alias`, `description`, `imag
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `articles_img`
+--
+
+CREATE TABLE `articles_img` (
+  `id` int(11) NOT NULL,
+  `articles_id` int(11) NOT NULL,
+  `image_url` varchar(255) NOT NULL,
+  `display_order` tinyint(4) NOT NULL,
+  `is_thumbnail` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `articles_img`
+--
+
+INSERT INTO `articles_img` (`id`, `articles_id`, `image_url`, `display_order`, `is_thumbnail`) VALUES
+(11, 3, '/public/uploads/images/201809/a2-1492339382965-1537842498.jpg', 1, 0),
+(12, 3, '/public/uploads/images/201809/can-ho-cao-cap-len-doi-noi-that-500-trieu-dep-ngat-ngay-o-ha-noi-2-1537842498.JPG', 1, 0),
+(15, 1, '/public/uploads/images/201809/maxresdefault-1537842498.jpg', 1, 0),
+(16, 1, '/public/uploads/images/201809/nm1-1537842986.jpg', 1, 0),
+(17, 2, '/public/uploads/images/201809/condotel-1537842498.jpg', 1, 0),
+(18, 2, '/public/uploads/images/201809/maxresdefault-1537842498.jpg', 1, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `banner`
 --
 
@@ -107,6 +144,16 @@ CREATE TABLE `banner` (
   `created_user` tinyint(4) NOT NULL,
   `updated_user` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `banner`
+--
+
+INSERT INTO `banner` (`id`, `image_url`, `ads_url`, `time_start`, `time_end`, `object_id`, `object_type`, `type`, `display_order`, `status`, `created_at`, `updated_at`, `created_user`, `updated_user`) VALUES
+(1, '/public/uploads/images/banner/banner1-1537843279.png', '', 0, 0, 1, 3, 1, 0, 1, '2018-09-25 09:41:23', '2018-09-25 09:41:23', 1, 1),
+(2, '/public/uploads/images/banner/banner2-1537845869.png', '', 0, 0, 1, 3, 1, 0, 1, '2018-09-25 09:44:38', '2018-09-25 10:24:31', 1, 1),
+(3, '/public/uploads/images/banner/banner3-1537845869.png', '', 0, 0, 1, 3, 1, 0, 1, '2018-09-25 10:24:38', '2018-09-25 10:24:38', 1, 1),
+(4, '/public/uploads/images/banner/banner4-1537845869.png', '', 0, 0, 1, 3, 1, 0, 1, '2018-09-25 10:24:45', '2018-09-25 10:24:45', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -134,9 +181,10 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `type`, `title`, `gender`, `full_name`, `email`, `phone`, `content`, `status`, `created_at`, `updated_at`, `updated_user`) VALUES
-(1, 0, '', 1, 'Nguyen Huy Hoang', 'hoangnhonline@gmail.com', '09484353252', 'jasdfdgsg\r\n', 1, '2017-08-13 10:04:47', '2017-08-13 10:04:47', 0),
-(2, 0, '', 1, 'sfasfasfas', 'adfjadfkaf@SAFASFA.COM', '0987654', 'SÂFAGAGDSGDSG', 1, '2017-08-13 10:05:34', '2017-08-13 10:05:34', 0),
-(3, 0, '', 1, 'test', 'test@gmil.com', '213123123', 'dfsaf', 1, '2017-10-26 07:10:53', '2017-10-26 07:10:53', 0);
+(4, 0, '', 1, 'dsagashshsdfhd', 'ghdsfhdfh@aaa.com', 'sdgagdfh', 'dfhsdfh', 1, '2018-09-25 11:08:07', '2018-09-25 11:08:07', 0),
+(5, 0, '', 1, 'ssdgadgs', 'dgasdgasdg@aaa.com', '00798435734', 'gádgasdgsd', 1, '2018-09-25 11:10:32', '2018-09-25 11:10:32', 0),
+(6, 0, '', 1, 'sdgsdg', 'sdgasdgasd@aaa.com', '098743251342314', 'ầFSDGSADG', 1, '2018-09-25 11:15:19', '2018-09-25 11:15:19', 0),
+(7, 0, '', 1, 'dsgasdgasdg', 'sdgasdg@aaa.com', '098736561235', 'sdgasdgsdgs', 1, '2018-09-25 11:16:04', '2018-09-25 11:16:04', 0);
 
 -- --------------------------------------------------------
 
@@ -150,6 +198,13 @@ CREATE TABLE `counter_ips` (
   `object_type` tinyint(4) NOT NULL COMMENT '1 : product 2: articles 3 :home',
   `visit` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `counter_ips`
+--
+
+INSERT INTO `counter_ips` (`ip`, `object_id`, `object_type`, `visit`) VALUES
+('127.0.0.1', 1, 3, 1537856267);
 
 -- --------------------------------------------------------
 
@@ -165,6 +220,13 @@ CREATE TABLE `counter_values` (
   `day_value` bigint(11) NOT NULL,
   `all_value` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `counter_values`
+--
+
+INSERT INTO `counter_values` (`id`, `object_id`, `object_type`, `day_id`, `day_value`, `all_value`) VALUES
+(1, 1, 3, 267, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -185,6 +247,34 @@ CREATE TABLE `menu` (
   `display_order` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meta_data`
+--
+
+CREATE TABLE `meta_data` (
+  `id` bigint(20) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `keywords` varchar(255) DEFAULT NULL,
+  `custom_text` text,
+  `created_user` int(11) NOT NULL,
+  `updated_user` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `meta_data`
+--
+
+INSERT INTO `meta_data` (`id`, `title`, `description`, `keywords`, `custom_text`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
+(1, 'Căn hộ 1', '', '', '', 1, 1, '2018-09-25 09:33:23', '2018-09-25 09:33:23'),
+(2, 'Căn hộ 1', '', '', '', 1, 1, '2018-09-25 09:35:02', '2018-09-25 09:35:02'),
+(3, 'Căn hộ 2', '', '', '', 1, 1, '2018-09-25 09:35:42', '2018-09-25 09:35:42'),
+(4, 'Căn hộ 3', '', '', '', 1, 1, '2018-09-25 09:37:10', '2018-09-25 09:37:10');
 
 -- --------------------------------------------------------
 
@@ -232,7 +322,7 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `title`, `alias`, `description`, `content`, `image_url`, `slug`, `status`, `meta_title`, `meta_description`, `meta_keywords`, `custom_text`, `created_user`, `updated_user`, `created_at`, `updated_at`) VALUES
-(1, 'Giới thiệu', 'Gioi thieu', '', '', '', 'gioi-thieu-bat-dong-san-dong-sai-gon', 1, '', '', '', '', 1, 1, '2016-09-22 07:14:21', '2017-11-13 11:59:58');
+(1, 'Giới thiệu', 'Gioi thieu', '', 'Nội dung trang giới thiệu', '/public/uploads/images/1533110270_2-1537804251.jpg', 'gioi-thieu-bat-dong-san-dong-sai-gon', 1, '', '', '', '', 1, 1, '2016-09-22 07:14:21', '2018-09-25 13:13:22');
 
 -- --------------------------------------------------------
 
@@ -273,20 +363,6 @@ CREATE TABLE `product` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_img`
---
-
-CREATE TABLE `product_img` (
-  `id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `image_url` varchar(255) NOT NULL,
-  `display_order` tinyint(4) NOT NULL,
-  `is_thumbnail` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `rating`
 --
 
@@ -318,31 +394,31 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `name`, `value`, `created_at`, `updated_at`) VALUES
 (1, 'base_url', 'http://annammobile.com', '2016-07-27 14:37:52', '2016-07-27 14:37:52'),
-(2, 'site_title', 'LAHAVA Trang phục cưới dạ hội cao cấp', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(3, 'site_description', 'Áo cưới đẹp, váy cưới, thiết kế và may đo đầm dạ hội, váy dự tiệc, áo dài cưới, áo dài cách tân...  theo cách chuyên nghiệp nhất. LAHAVA Wedding &amp; Party', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(4, 'site_keywords', 'áo cưới, áo cưới đẹp, váy cưới, áo dài cưới', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
+(2, 'site_title', 'Bất động sản Đông Sài Gòn', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(3, 'site_description', 'Bất động sản Đông Sài Gòn', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(4, 'site_keywords', 'đông sài gòn, bất động sản', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
 (5, 'admin_email', 'nghien.biz@gmail.com', '2016-07-27 14:37:52', '2016-07-27 14:37:52'),
 (22, 'mail_server', 'mail.example.com', '2016-07-27 14:37:52', '2016-07-27 14:37:52'),
 (23, 'mail_login_name', 'login@example.com', '2016-07-27 14:37:52', '2016-07-27 14:37:52'),
 (24, 'mail_password', 'password', '2016-07-27 14:37:52', '2016-07-27 14:37:52'),
-(105, 'site_name', 'Lahava.vn\r\n', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(113, 'google_analystic', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(114, 'facebook_appid', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(115, 'google_fanpage', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(116, 'facebook_fanpage', 'https://www.facebook.com/Nam-Phúc-Jean-199070413968847', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
+(105, 'site_name', 'batdongsandongsaigon.com', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(113, 'google_analystic', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(114, 'facebook_appid', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(115, 'google_fanpage', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(116, 'facebook_fanpage', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
 (117, 'twitter_fanpage', '', '2016-07-27 14:37:52', '2017-09-21 09:36:34'),
-(130, 'logo', '/public/uploads/images/logo.png', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(131, 'favicon', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(141, 'banner', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(142, 'custom_text', '', '2016-07-27 14:37:52', '2017-11-28 10:32:35'),
-(143, 'email_cc', 'hoangnhonline@gmail.com, tungocsang88@gmail.com, namphucjean@yahoo.com.vn', '2016-11-11 00:00:00', '2017-11-28 10:32:35'),
+(130, 'logo', '/public/uploads/images/logo-1537843913.png', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(131, 'favicon', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(141, 'banner', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(142, 'custom_text', '', '2016-07-27 14:37:52', '2018-09-25 09:51:56'),
+(143, 'email_cc', '', '2016-11-11 00:00:00', '2018-09-25 08:29:20'),
 (144, 'mo_ta_sp', '', '2017-08-06 00:00:00', '2017-09-20 09:30:06'),
-(145, 'hotline', '0908201785', '0000-00-00 00:00:00', '2017-11-28 10:32:35'),
-(146, 'email_header', 'namphucjean@yahoo.com.vn', '0000-00-00 00:00:00', '2017-11-28 10:32:35'),
-(147, 'thong_tin_cong_ty', '<p><strong>C&Ocirc;NG TY TNHH SẢN XUẤT THƯƠNG MẠI NAM PH&Uacute;C</strong></p>\r\n\r\n<p>Địa chỉ: 788 Lạc Long Qu&acirc;n, phường 09, quận T&acirc;n B&igrave;nh, th&agrave;nh phố Hồ Ch&iacute; Minh</p>\r\n\r\n<p>MST:&nbsp;0303009555</p>\r\n\r\n<p>Điện thoại: 283 8602 440 - Fax: 283 8601 951</p>\r\n\r\n<p>Di động: 091 820 7777&nbsp;- 091 830 6666</p>\r\n\r\n<p>Email: <a href=\"mailto:amphucjean@yahoo.com.vn\">namphucjean@yahoo.com.vn</a></p>\r\n\r\n<p>Website: <a href=\"#\">www.namphucjean.com</a></p>\r\n', '0000-00-00 00:00:00', '2017-11-28 10:32:35'),
-(148, 'gio_lam_viec', '08:00 - 17:00', '0000-00-00 00:00:00', '2017-11-28 10:32:35'),
-(149, 'thong_bao_thanh_cong', '<p><strong>Cảm ơn qu&yacute; kh&aacute;ch đ&atilde; mua h&agrave;ng !</strong> Ch&uacute;ng t&ocirc;i li&ecirc;n hệ x&aacute;c nhận đến số điện thoại của qu&yacute; kh&aacute;ch v&agrave; sẽ giao h&agrave;ng đến cho qu&yacute; kh&aacute;ch trong thời gian từ 2-3 ng&agrave;y sau khi x&aacute;c nhận.</p>\r\n\r\n<p><strong>Ch&acirc;n th&agrave;nh cảm ơn qu&yacute; kh&aacute;ch.</strong></p>\r\n', '0000-00-00 00:00:00', '2017-11-28 10:32:35'),
-(150, 'maps', '<iframe src=\"https://www.google.com/maps/d/embed?mid=1KVnBKC-C7HvPg2dBcaaTVOiW83bgcRiN&hl=vi\" width=\"640\" height=\"480\"></iframe>', '0000-00-00 00:00:00', '2017-11-28 10:32:35');
+(145, 'hotline', '', '0000-00-00 00:00:00', '2018-09-25 08:29:19'),
+(146, 'email_header', '', '0000-00-00 00:00:00', '2018-09-25 08:29:20'),
+(147, 'thong_tin_cong_ty', '', '0000-00-00 00:00:00', '2018-09-25 09:51:56'),
+(148, 'gio_lam_viec', '', '0000-00-00 00:00:00', '2018-09-25 08:29:20'),
+(149, 'thong_bao_thanh_cong', '', '0000-00-00 00:00:00', '2018-09-25 08:29:20'),
+(150, 'maps', '', '0000-00-00 00:00:00', '2018-09-25 08:29:20');
 
 -- --------------------------------------------------------
 
@@ -432,6 +508,12 @@ ALTER TABLE `articles_cate`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `articles_img`
+--
+ALTER TABLE `articles_img`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `banner`
 --
 ALTER TABLE `banner`
@@ -468,6 +550,12 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `meta_data`
+--
+ALTER TABLE `meta_data`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `newsletter`
 --
 ALTER TABLE `newsletter`
@@ -485,12 +573,6 @@ ALTER TABLE `pages`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `product_img`
---
-ALTER TABLE `product_img`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -539,7 +621,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `articles_cate`
@@ -548,28 +630,40 @@ ALTER TABLE `articles_cate`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `articles_img`
+--
+ALTER TABLE `articles_img`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `counter_values`
 --
 ALTER TABLE `counter_values`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `meta_data`
+--
+ALTER TABLE `meta_data`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `newsletter`
@@ -587,12 +681,6 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `product_img`
---
-ALTER TABLE `product_img`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
