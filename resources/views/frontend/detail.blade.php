@@ -31,7 +31,7 @@
                         {!! $detail->description !!}                                         
                     </div>
 
-                    <p class="tel-contact">Phòng kinh doanh chủ đầu tư : <strong>0909.869.292</strong> (Mr. Lân)</p>
+                    <p class="tel-contact">{!! $detail->contact !!}</p>
                 </div>
             </div>
         </div>

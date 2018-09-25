@@ -66,6 +66,10 @@
                           <label>Giới thiệu</label>                          
                           <textarea class="form-control" rows="4" name="about" id="about">{{ old('about', $detail->about) }}</textarea>
                         </div>
+                        <div class="form-group">
+                          <label>Liên hệ</label>                          
+                          <textarea class="form-control" rows="4" name="contact" id="contact">{{ old('contact', $detail->contact) }}</textarea>
+                        </div>
                         <div class="clearfix"></div> 
                         <div class="form-group" style="margin-top: 15px !important;">
                           <label>Mô tả ngắn</label>
