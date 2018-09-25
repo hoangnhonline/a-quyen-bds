@@ -9,7 +9,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('banner.index', ['object_id' => $object_id, 'object_type' => $object_type]) }}">banner</a></li>
-      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
+      <li class="active">Cập nhật</li>
     </ol>
   </section>
 
@@ -39,64 +39,22 @@
                       </ul>
                   </div>
               @endif              
-                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Desktop 
-                    <?php 
+                 <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
+                  <label class="col-md-3 row">Banner <?php 
                   if($object_id == 1){
-                    echo "( 1781 x 1020 px)";
+                    echo "( 1349 x 300 px)";
                   }elseif($object_id == 5){
                     echo "( 1349 x 200 px)";
                   }
-                  ?></label>    
+                  ?></label>  
+                  <input type="hidden" name="id" value="{{ $detailBanner->id }}">  
                   <div class="col-md-9">
-                    <img id="thumbnail_image_url" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
-                 
+                    <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="500">
                     <button class="btn btn-default btn-sm btnSingleUpload" data-set="image_url" data-image="thumbnail_image" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                    <input type="hidden" name="image_url" id="image_url" value="{{ $detail->image_url }}"/>
                   </div>
                   <div style="clear:both"></div>
-                </div>
-                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Máy tính bảng 
-                    <?php 
-                  if($object_id == 1){
-                    echo "( 1024 x 1366 px)";
-                  }elseif($object_id == 5){
-                    echo "( 1349 x 200 px)";
-                  }
-                  ?></label>    
-                  <div class="col-md-9">
-                    <img id="thumbnail_ipad_url" src="{{ $detail->ipad_url ? Helper::showImage($detail->ipad_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
-                 
-                    <button class="btn btn-default btn-sm btnSingleUpload" data-set="ipad_url" data-image="thumbnail_image" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                    <input type="hidden" name="ipad_url" id="ipad_url" value="{{ $detail->ipad_url }}"/>
-                  </div>
-                  <div style="clear:both"></div>
-                </div>
-                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Điện thoại
-                    <?php 
-                  if($object_id == 1){
-                    echo "( 517 x 1020 px)";
-                  }elseif($object_id == 5){
-                    echo "( 1349 x 200 px)";
-                  }
-                  ?></label>    
-                  <div class="col-md-9">
-                    <img id="thumbnail_mobile_url" src="{{ $detail->mobile_url ? Helper::showImage($detail->mobile_url ) : URL::asset('public/admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
-                  
-                    <button class="btn btn-default btn-sm btnSingleUpload" data-set="mobile_url" data-image="thumbnail_image" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                    <input type="hidden" name="mobile_url" id="mobile_url" value="{{ $detail->mobile_url }}"/>
-                  </div>
-                  <div style="clear:both"></div>
-                </div>  
-                <div class="form-group">
-                  <label>Ẩn / Hiện</label>
-                  <select name="status" class="form-control" id="status">
-                  	<option value="1" {{ $detailBanner->status == 1  ? "selected" : "" }}>Hiện</option>
-                  	<option value="2" {{ $detailBanner->status == 2  ? "selected" : "" }}>Ẩn</option>
-                  </select>
-                </div>           
+                </div>        
+                <input type="hidden" name="status" value="1">       
                 <!-- textarea -->
                 <div class="form-group">
                   <label>Loại banner</label>
@@ -108,9 +66,10 @@
                 <div class="form-group" id="div_lk" style="display:none">
                   <label>Liên kết</label>
                   <input type="text" name="ads_url" id="ads_url" value="{{ $detailBanner->ads_url }}" class="form-control">
-                </div>                  
+                </div>  
+                <input type="hidden" name="image_url" id="image_url" value="{{ $detailBanner->image_url }}"/>          
+            	<input type="hidden" name="image_name" id="image_name" value="{{ old('image_name') }}"/>
                 <input type="hidden" name="object_id" value="{{ $object_id }}">
-                <input type="hidden" name="id" value="{{ $detailBanner->id }}">
                 <input type="hidden" name="object_type" value="{{ $object_type }}">
             </div>                        
             <div class="box-footer">
@@ -132,7 +91,7 @@
 </div>
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
 @stop
-@section('javascript_page')
+@section('js')
 <script type="text/javascript">
 var h = screen.height;
 var w = screen.width;
@@ -145,7 +104,7 @@ function openKCFinder_singleFile() {
          $('#thumbnail_image').attr('src', $('#app_url').val() + url);
           window.KCFinder = null;
       };
-      window.open('{{ URL::asset("admin/dist/js/kcfinder/browse.php?type=images") }}', 'kcfinder_single','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
+      window.open('{{ URL::asset("public/admin/dist/js/kcfinder/browse.php?type=images") }}', 'kcfinder_single','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
   }
     $(document).ready(function(){
       

@@ -21,13 +21,15 @@ class ContactController extends Controller
             'email' => 'email|required',
             'full_name' => 'required',
             'content' => 'required',
-            'phone' => 'required'         
+            'phone' => 'required|numeric|min:11'         
         ],
         [            
             'full_name.required' => 'Bạn chưa nhập họ và tên.',
             'email.required' => 'Bạn chưa nhập email.',
             'email.email' => 'Địa chỉ email không hợp lệ.',
             'phone.required' => 'Bạn chưa nhập số điện thoại.',
+            'phone.numeric' => 'Số điện thoại không hợp lệ.',
+            'phone.min' => 'Số điện thoại không hợp lệ.',
             'content.required' => 'Bạn chưa nhập nội dung.'            
         ]);       
         if(isset($dataArr['image_list'])){
@@ -35,24 +37,24 @@ class ContactController extends Controller
         }
         $rs = Contact::create($dataArr);
 
-        $emailArr = ['hoangnhonline@gmail.com', 'lananhthoitrang@gmail.com'];
+        $emailArr = ['hoangnhonline@gmail.com'];
         
         
-        Mail::send('frontend.contact.email',
-            [                   
-                'dataArr'             => $rs
-            ],
-            function($message) use ($dataArr, $emailArr) {                    
-                $message->subject('Khách hàng gửi Tư vấn / Góp ý / Báo giá');
-                $message->to($emailArr);
-                $message->replyTo($dataArr['email'], $dataArr['full_name']);
-                $message->from('web.0917492306@gmail.com', 'LAHAVA');
-                $message->sender('web.0917492306@gmail.com', 'LAHAVA');
-        });        
+        // Mail::send('frontend.email',
+        //     [                   
+        //         'dataArr'             => $rs
+        //     ],
+        //     function($message) use ($dataArr, $emailArr) {                    
+        //         $message->subject('Khách hàng gửi liên hệ');
+        //         $message->to($emailArr);
+        //         $message->replyTo($dataArr['email'], $dataArr['full_name']);
+        //         $message->from('web.0917492306@gmail.com', 'batdongsandongsg.com');
+        //         $message->sender('web.0917492306@gmail.com', 'batdongsandongsg.com');
+        // });        
 
-        Session::flash('message', 'Gửi thông tin thành công.');
+        Session::flash('message', 'Gửi liên hệ thành công.');
 
-        return redirect()->route('tuvan');
+        return redirect()->route('home');
     }
 
     public function storeSodo(Request $request)

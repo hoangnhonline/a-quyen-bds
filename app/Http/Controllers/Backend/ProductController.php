@@ -76,7 +76,7 @@ class ProductController extends Controller
             $cateArr = (object) [];
         }
 
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'cateParentList', 'cateArr'));
+        return view('backend.articles.index', compact( 'items', 'arrSearch', 'cateParentList', 'cateArr'));
     }    
   
     /**
@@ -161,7 +161,7 @@ class ProductController extends Controller
         $this->storeMeta($product_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
-        return redirect()->route('product.index', [
+        return redirect()->route('articles.index', [
                         'parent_id' => $dataArr['parent_id'], 
                         'cate_id' => $dataArr['cate_id']            
                         ]

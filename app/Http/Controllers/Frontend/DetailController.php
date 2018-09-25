@@ -5,19 +5,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\CateParent;
-use App\Models\Cate;
-use App\Models\Product;
-use App\Models\ProductImg;
+use App\Models\ArticlesImg;
 use App\Models\Banner;
-use App\Models\MetaData;
-use App\Models\Tag;
 use App\Models\Settings;
-use App\Models\TagObjects;
 use App\Models\Articles;
-use App\Models\Color;
-use App\Models\Size;
-use App\Models\ArticlesCate;
+use App\Models\MetaData;
+
 use Helper, File, Session, Auth, Response;
 
 class DetailController extends Controller
@@ -37,21 +30,15 @@ class DetailController extends Controller
     * @return Response
     */
     public function index(Request $request)
-    {   
-        $tl = $request->tl ? $request->tl : 0;
+    {           
         Helper::counter(1, 3);
         $productArr = [];
         $slug = $request->slug;
-        $detail = Product::where('slug', $slug)->first();
+        $detail = Articles::where('slug', $slug)->first();
         if(!$detail){
             return redirect()->route('home');
         }
-        $id = $detail->id;
-        $loaiDetail = CateParent::find( $detail->parent_id );
-        $parent_id = $loaiDetail->id;
-        $cateDetail = Cate::find( $detail->cate_id );
-
-        $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
+        $id = $detail->id;        
         
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -62,34 +49,15 @@ class DetailController extends Controller
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
         }               
         if($detail->thumbnail_id){
-            $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
+            $socialImage = $detail->thumbnail->image_url;
         }else{
             $socialImage = '';
         }
        
-        $query = Product::where('product.slug', '<>', '')
-                    ->where('product.parent_id', $detail->parent_id)
-                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                   
-                    ->select('product_img.image_url', 'product.*')
-                    ->where('product.id', '<>', $detail->id);                        
-                    $otherList = $query->orderBy('product.id', 'desc')->limit(6)->get();
-        $tagSelected = Product::getListTag($detail->id);
-
-        // get list size selected
-        $colorArr = $sizeArr = [];
-        $colorList = Color::orderBy('display_order')->get();      
-        $sizeList = Size::orderBy('display_order')->get();    
-        foreach($colorList as $color){
-            $colorArr[$color->id] = $color;
-        }        
-        foreach($detail->colors as $color){
-            $colorSelected[] = $color->color_id;
-        }         
-
-       // dd($colorSelected);
-        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'productArr', 'seo', 'socialImage', 'otherList', 'tagSelected',
-            'sizeArr', 'sizeSelected', 'colorArr', 'colorSelected', 'parent_id', 'tl'
-            ));
+        $query = Articles::where('status', 1)->where('id', '<>', $detail->id);                        
+        $otherList = $query->orderBy('id', 'desc')->limit(6)->get();
+        $bannerList =  Banner::where(['object_id' => 1, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+        return view('frontend.detail', compact('detail', 'seo', 'socialImage', 'otherList', 'bannerList'));
     }
     public function full(Request $request)
     {   

@@ -65,9 +65,7 @@
                   
                   @if( $item->is_hot == 1 )
                   <label class="label label-danger">HOT</label>
-                  @endif
-
-                  <p>{{ $item->description }}</p>
+                  @endif                 
                 </td>
                 
                 <td style="white-space:nowrap">   

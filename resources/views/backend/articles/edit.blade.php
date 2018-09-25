@@ -30,6 +30,9 @@
           <!-- /.box-header -->               
             {!! csrf_field() !!}          
             <div class="box-body">
+              @if(Session::has('message'))
+              <p class="alert alert-info" >{{ Session::get('message') }}</p>
+              @endif
                 @if (count($errors) > 0)
                   <div class="alert alert-danger">
                     <ul>
@@ -58,6 +61,10 @@
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
+                        </div>
+                        <div class="form-group">
+                          <label>Giới thiệu</label>                          
+                          <textarea class="form-control" rows="4" name="about" id="about">{{ old('about', $detail->about) }}</textarea>
                         </div>
                         <div class="clearfix"></div> 
                         <div class="form-group" style="margin-top: 15px !important;">

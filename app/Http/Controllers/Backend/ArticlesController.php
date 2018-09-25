@@ -251,15 +251,15 @@ class ArticlesController extends Controller
                         
                         $new_img = config('dongsg.upload_thumbs_path').end($tmpArrImg);
 
-                        if($w_img/$h_img > 294/166){
+                        if($w_img/$h_img > 360/204){
 
-                            Image::make($origin_img)->resize(null, 166, function ($constraint) {
+                            Image::make($origin_img)->resize(null, 204, function ($constraint) {
                                     $constraint->aspectRatio();
-                            })->crop(294, 166)->save($new_img);
+                            })->crop(360, 204)->save($new_img);
                         }else{
-                            Image::make($origin_img)->resize(294, null, function ($constraint) {
+                            Image::make($origin_img)->resize(360, null, function ($constraint) {
                                     $constraint->aspectRatio();
-                            })->crop(294, 166)->save($new_img);
+                            })->crop(360, 204)->save($new_img);
                         }
 
                         $imageArr['name'][] = $image_url;

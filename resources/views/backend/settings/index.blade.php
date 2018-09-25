@@ -59,7 +59,7 @@
                   <label>Google +</label>
                   <input type="text" class="form-control" name="google_fanpage" id="google_fanpage" value="{{ $settingArr['google_fanpage'] }}">
                 </div>
-                <div class="form-group">
+               <!--  <div class="form-group">
                   <label>Hotline</label>
                   <input type="text" class="form-control" name="hotline" id="hotline" value="{{ $settingArr['hotline'] }}">
                 </div>
@@ -74,31 +74,31 @@
                 <div class="form-group">
                   <label>Email CC</label>
                   <textarea class="form-control" rows="3" name="email_cc" id="email_cc">{{ $settingArr['email_cc'] }}</textarea>
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label>Thông tin công ty</label>
                   <textarea class="form-control" rows="7" name="thong_tin_cong_ty" id="thong_tin_cong_ty">{{ $settingArr['thong_tin_cong_ty'] }}</textarea>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label>Thông báo đặt hàng thành công</label>
                   <textarea class="form-control" rows="7" name="thong_bao_thanh_cong" id="thong_bao_thanh_cong">{{ $settingArr['thong_bao_thanh_cong'] }}</textarea>
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label>Code google analystic </label>
                   <input type="text" class="form-control" name="google_analystic" id="google_analystic" value="{{ $settingArr['google_analystic'] }}">
                 </div>  
-                  <div class="form-group">
+                 <!--  <div class="form-group">
                   <label>Maps</label>
                   <textarea class="form-control" rows="7" name="maps" id="maps">{{ $settingArr['maps'] }}</textarea>
-                </div>
+                </div> -->
                 <div class="form-group col-md-12" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-4 row">Logo ( 255 x 55 px )</label>    
+                  <label class="col-md-4 row">Logo ( 180 x 55 px )</label>    
                   <div class="col-md-8 div-upload">
-                    <img class="show_thumbnail logo" src="{{ $settingArr['logo'] ? Helper::showImage($settingArr['logo']) : URL::asset('admin/dist/img/img.png') }}" class="img-logo" width="150" >
+                    <img class="show_thumbnail logo" id="thumbnail_logo" src="{{ $settingArr['logo'] ? Helper::showImage($settingArr['logo']) : URL::asset('public/admin/dist/img/img.png') }}" class="img-logo" width="150" >
                     
                     <input type="file" data-value="logo" class="click-choose-file" style="display:none" />
                  
-                    <button class="btn btn-default btn-sm btnUploadImage" data-value="logo"  data-choose="file-logo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm btnSingleUpload" data-set="logo" data-image="thumbnail_logo" data-value="logo"  data-choose="file-logo" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -106,8 +106,8 @@
                 <div class="form-group col-md-12" style="margin-top:10px;margin-bottom:10px">  
                   <label class="col-md-4 row">Banner ( og:image ) </label>    
                   <div class="col-md-8 div-upload">
-                    <img class="show_thumbnail banner" src="{{ $settingArr['banner'] ? Helper::showImage($settingArr['banner']) : URL::asset('admin/dist/img/img.png') }}" class="img-banner" width="200">                  
-                    <button class="btn btn-default btn-sm btnUploadImage" data-value="banner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <img class="show_thumbnail" id="thumbnail_banner" src="{{ $settingArr['banner'] ? Helper::showImage($settingArr['banner']) : URL::asset('public/admin/dist/img/img.png') }}" class="img-banner" width="200">                  
+                    <button class="btn btn-default btn-sm  btnSingleUpload" data-set="banner" data-image="thumbnail_banner" data-value="banner" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
                 </div>
@@ -171,25 +171,8 @@
 @stop
 @section('javascript_page')
 <script type="text/javascript">
-var h = screen.height;
-var w = screen.width;
-var left = (screen.width/2)-((w-300)/2);
-var top = (screen.height/2)-((h-100)/2);
-function openKCFinder_singleFile(obj_str) {
-  alert('123');
-      window.KCFinder = {};
-      window.KCFinder.callBack = function(url) {
-         $('#' + obj_str).val(url);
-         $('.show_thumbnail.' + obj_str).attr('src', $('#app_url').val() + url);
-          window.KCFinder = null;
-      };
-      window.open('{{ URL::asset("admin/dist/js/kcfinder/browse.php?type=images") }}', 'kcfinder_single','scrollbars=1,menubar=no,width='+ (w-300) +',height=' + (h-300) +',top=' + top+',left=' + left);
-  }
     $(document).ready(function(){     
-      $('.btnUploadImage').click(function(){
-        openKCFinder_singleFile($(this).data('value'));
-        //$(this).parents('.div-upload').find('.click-choose-file').click();
-      });
+    
       var editor = CKEDITOR.replace( 'thong_tin_cong_ty',{
           language : 'vi',       
           height : 300,

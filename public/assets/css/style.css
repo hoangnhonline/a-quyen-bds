@@ -695,3 +695,18 @@
   pointer-events: none; }
 
 /*# sourceMappingURL=style.css.map */
+.alert {
+    background-color: #FFF;
+}
+.alert-danger li{
+    color: red;
+    padding: 5px;
+}
+.alert-info li{
+  color: #63b1f7;
+  padding: 5px;
+}
+input.error, textarea.error{
+  border: 1px solid red;  
+  border-radius: 5px;
+}

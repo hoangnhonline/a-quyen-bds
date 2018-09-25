@@ -29,6 +29,7 @@ class Articles extends Model  {
         'slug', 
         'alias', 
         'description', 
+        'about',
         'image_list',
         'cate_id', 
         'thumbnail_id',                            

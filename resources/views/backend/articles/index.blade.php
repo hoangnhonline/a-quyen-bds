@@ -61,7 +61,9 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>       
                 <td>
+                  @if($item->thumbnail)
                   <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->thumbnail->image_url)}}" width="145">
+                  @endif
                 </td>        
                 <td style="vertical-align: top">                  
                   <a style="font-size:17px" href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
@@ -69,6 +71,7 @@
                   @if( $item->is_hot == 1 )
                   <label class="label label-danger">HOT</label>
                   @endif
+                  <p>{!! $item->about !!}</p>                 
                   <div class="block-author">
                       <ul>
                         <li>
@@ -85,10 +88,11 @@
                           <span class="name">{!! $item->updatedUser->full_name !!} ( {!! date('d/m/Y H:i', strtotime($item->updated_at)) !!} )</span>          
                         </li>                          
                       </ul>
-                    </div>                  
+                    </div> 
+
                 </td>
                 <td style="white-space:nowrap;vertical-align: top"> 
-                  <a class="btn btn-default btn-sm" href="{{ route('news-detail', [$item->slug]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
+                  <a class="btn btn-default btn-sm" href="{{ route('detail', [$item->slug]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
                   <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
                   <a onclick="return callDelete('{{ $item->title }}','{{ route( 'articles.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
@@ -98,7 +102,7 @@
               @endforeach
             @else
             <tr>
-              <td colspan="9">Không có dữ liệu.</td>
+              <td colspan="4">Không có dữ liệu.</td>
             </tr>
             @endif
 

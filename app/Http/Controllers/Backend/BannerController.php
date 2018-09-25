@@ -20,10 +20,8 @@ class BannerController extends Controller
     * @return Response
     */
     public function index(Request $request)
-    {
-        if(Auth::user()->role == 1){
-            return redirect()->route('articles.index');
-        }
+    {      
+          
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : null;
         $arrSearch['object_id'] = $object_id = $request->object_id;
         $arrSearch['object_type'] = $object_type = $request->object_type;
@@ -61,6 +59,7 @@ class BannerController extends Controller
         return view('backend.banner.index', compact( 'items', 'detail', 'arrSearch'));
     }
     public function lists(Request $request){
+          
         return view('backend.banner.list');   
     }
     /**
@@ -70,6 +69,7 @@ class BannerController extends Controller
     */
     public function create(Request $request)
     {
+          
         $detail = (object) [];
         $object_id = $request->object_id;
         $object_type = $request->object_type;
@@ -117,7 +117,8 @@ class BannerController extends Controller
             'slug.required' => 'Bạn chưa nhập slug',
         ]);
         */
-        $dataArr['status'] = isset($dataArr['status'])  ? 1 : 0;        
+        $dataArr['status'] = isset($dataArr['status'])  ? 1 : 0;
+        
         
         $dataArr['created_user'] = Auth::user()->id;
 
@@ -148,6 +149,7 @@ class BannerController extends Controller
     */
     public function edit(Request $request)
     {
+          
         $id = $request->id;
         $detailBanner = Banner::find($id);
         $detail = Banner::find($id);
@@ -161,6 +163,19 @@ class BannerController extends Controller
         }
         if($object_type == 4){
             $detail = LandingProjects::find($object_id);
+        }
+        if( $object_type == 3){
+            if( $object_id == 1){
+                $detail->name = "Slide trang chủ";
+            }elseif( $object_id == 2){
+                $detail->name = "Banner trượt bên trái";
+            }elseif( $object_id == 3){
+                $detail->name = "Banner trượt bên phải";
+            }elseif( $object_id == 4){
+                $detail->name = "Banner top ( cạnh logo )";
+            }elseif($object_id == 5){
+                $detail->name = "Banner giữa trang";
+            }         
         }
         return view('backend.banner.edit', compact( 'detail', 'detailBanner', 'object_id', 'object_type'));
     }
@@ -178,7 +193,10 @@ class BannerController extends Controller
         
         
         $dataArr['updated_user'] = Auth::user()->id;
-        $dataArr['status'] = isset($dataArr['status'])  ? 1 : 0;                
+        $dataArr['status'] = isset($dataArr['status'])  ? 1 : 0;
+
+       
+        
         $model = Banner::find($dataArr['id']);
 
         $model->update($dataArr);
@@ -196,6 +214,7 @@ class BannerController extends Controller
     */
     public function destroy($id)
     {
+          
         // delete
         $model = Banner::find($id);
         $model->delete();
