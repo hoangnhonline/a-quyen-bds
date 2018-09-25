@@ -93,7 +93,9 @@
                     <div class="body-info">
                         <img src="{{ URL::asset('public/assets/images/logo_contact.png') }}" alt="Logo batdongsandongsaigon.com">
                         <h3>Về chúng tôi</h3>
-                        <p>Chúng tôi đã giúp hàng trăm khách hàng tìm được căn hộ như ý. Với quỹ đa dạng nhất thị trường, Chúng tôi tự tin sẽ giúp bạn thực hiện được giấc mơ sỡ hữu BDS, Căn hộ và tối ưu hiệu quả đầu tư</p>
+                        <div class="us-body-desc">
+                            <p>Chúng tôi đã giúp hàng trăm khách hàng tìm được căn hộ như ý. Với quỹ đa dạng nhất thị trường, Chúng tôi tự tin sẽ giúp bạn thực hiện được giấc mơ sỡ hữu BDS, Căn hộ và tối ưu hiệu quả đầu tư</p>
+                        </div>
                         <p class="text-tel">Hãy liên hệ với chúng tôi ngay hôm nay:</p>
                         <p class="contact-tel">0908.195.468</p>
                     </div>
@@ -118,7 +120,7 @@
                             <input type="email" class="@if($errors->has('email')) error @endif" placeholder="Địa chỉ email của bạn" name="email" id="email" value="{{ old('email') }}">
                             <input type="text" class="@if($errors->has('phone')) error @endif" placeholder="Số điện thoại liên hệ" name="phone" id="phone" value="{{ old('phone') }}">
                             <textarea class="@if($errors->has('content')) error @endif" placeholder="Nội dung yêu cầu..." name="content" id="content">{{ old('content') }}</textarea>
-                            <button type="submit" id="btnSend">Gửi</button>
+                            <p class="text-center"><button id="btnSend" type="submit">Gửi</button></p>
                         </form>
                     </div>
                 </div>

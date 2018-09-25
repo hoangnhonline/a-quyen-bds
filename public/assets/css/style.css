@@ -224,7 +224,9 @@
   .contact .body-info {
     background: #fff;
     padding: 15px;
-    height: 348px; }
+     height: 383px; }
+    .contact .body-info .us-body-desc {
+      min-height: 130px; }
     .contact .body-info h3 {
       margin: 0;
       padding: 10px 0 5px;
@@ -235,7 +237,9 @@
       font-size: 18px;
       color: #1668b2;
       text-transform: uppercase;
-      margin-top: 50px; }
+      margin-top: 50px;
+      margin-top: 10px;
+      margin-bottom: 20px; }
     .contact .body-info .contact-tel {
       border: 2px dashed #1668b2;
       font-size: 26px;
@@ -263,6 +267,18 @@
       height: 110px;
       padding: 10px; }
 
+      .contact .form-body p {
+      margin-bottom: 0; }
+    .contact .form-body #btnSend {
+      background: #1668b2;
+      border: none;
+      color: #fff;
+      padding: 5px 0;
+      min-width: 120px;
+      margin: 5px auto 0;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px; }
 /* trang chi tiet*/
 .top-house-detail {
   margin-bottom: 40px; }
@@ -382,7 +398,10 @@
     float: none; }
 
   .scrollbar-inner {
-    max-height: 100% !important; } }
+    max-height: 100% !important; } 
+    .contact .body-info {
+    height: 411px;  }
+}
 @media (max-width: 767px) {
   #header .header-tel .tel {
     border-left: none; }

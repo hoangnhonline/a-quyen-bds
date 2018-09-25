@@ -11,10 +11,8 @@
 </div>
 <div class="main">
     <div class="container">
-        <h2>{!! $detail->title !!}</h2>
-        <div id="content-page">
-            {!! str_replace("[Caption]", "", $detail->content) !!}  
-        </div>
+        <div class="page-title">Về chúng tôi</div>
+        {!! str_replace("[Caption]", "", $detail->content) !!}
     </div>    
 </div><!-- End main -->
 @stop
