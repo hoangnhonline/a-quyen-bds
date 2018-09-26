@@ -1,6 +1,28 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
+<div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=567408173358902";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+  return t;
+}(document, "script", "twitter-wjs"));</script>
 <div class="breadcrumb">
     <div class="container">
         <ul class="list-unstyled">
@@ -24,6 +46,22 @@
                         @endforeach
                     </ul>
                     @endif
+                    <div class="block block-share" id="share-buttons" style="margin-bottom:10px">
+                        <div class="share-item">
+                            <div class="fb-like" data-href="{{ url()->current() }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                        </div>
+                        <div class="share-item" style="max-width: 65px;">
+                            <div class="g-plus" data-action="share"></div>
+                        </div>
+                        <div class="share-item">
+                            <a class="twitter-share-button"
+                          href="https://twitter.com/intent/tweet?text={!! $detail->title !!}">
+                        Tweet</a>
+                        </div>
+                        <div class="share-item">
+                            <div class="addthis_inline_share_toolbox"></div>
+                        </div>
+                    </div><!-- /block-share-->
                 </div>
                 <div class="info-real-estate">
                     <h2 class="page-title">{!! $detail->title !!}</h2>
@@ -84,9 +122,18 @@
         </div>
     </div>    
 </div><!-- End main -->
+<style type="text/css">
+    .block-share .share-item {
+    display: inline-block;
+    vertical-align: top;
+    line-height: initial;
+}
+</style>
 @stop
 @section('javascript')
 <script src="{{ URL::asset('public/assets/js/jquery.scrollbar.js') }}"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59b215c2a2658a8a"></script>  
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.scrollToContact').on('click',function () {
