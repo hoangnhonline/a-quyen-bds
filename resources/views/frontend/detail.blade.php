@@ -132,7 +132,7 @@
     display: none !important;
 }
 .slick-dotted.slick-slider{
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 </style>
 @stop
