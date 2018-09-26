@@ -27,8 +27,7 @@ class HomeController extends Controller
     public function index(Request $request){
         Helper::counter(1, 3);    
         
-        $articlesList = Articles::where('status', 1)->orderBy('id', 'desc')->get();
-      
+        $articlesList = Articles::where('status', 1)->orderBy('id', 'desc')->get();       
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
         $seo = $settingArr;
         
