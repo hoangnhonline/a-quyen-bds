@@ -69,7 +69,7 @@
                                 @foreach($otherList as $articles)
                                 <div class="col-sm-3">
                                     <a href="{{ route('detail', $articles->slug) }}">
-                                        <img src="{{ Helper::showImageThumb($articles->thumbnail->image_url ) }}" alt="{!! $articles->title !!}">
+                                        <img src="{{ ($articles->thumbnail) ? Helper::showImageThumb($articles->thumbnail->image_url ) :  '' }}" alt="{!! $articles->title !!}">
                                         <h2 class="title-obj">{!! $articles->title !!}</h2>
                                         <div class="desc">{!! $articles->about !!}</div>
                                     </a>
