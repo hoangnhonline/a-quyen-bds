@@ -123,10 +123,13 @@
     </div>    
 </div><!-- End main -->
 <style type="text/css">
-    .block-share .share-item {
+.block-share .share-item {
     display: inline-block;
     vertical-align: top;
     line-height: initial;
+}
+.slick-dots{
+    display: none !important;
 }
 </style>
 @stop
