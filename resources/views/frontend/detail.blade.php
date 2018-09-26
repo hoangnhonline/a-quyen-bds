@@ -131,6 +131,9 @@
 .slick-dots{
     display: none !important;
 }
+.slick-dotted.slick-slider{
+    margin-bottom: 0px;
+}
 </style>
 @stop
 @section('javascript')
