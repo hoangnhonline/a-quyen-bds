@@ -52,6 +52,10 @@
                   <input type="text" class="form-control" name="facebook_fanpage" id="facebook_fanpage" value="{{ $settingArr['facebook_fanpage'] }}">
                 </div>
                 <div class="form-group">
+                  <label>Twitter</label>
+                  <input type="text" class="form-control" name="link_twitter" id="link_twitter" value="{{ $settingArr['link_twitter'] }}">
+                </div>
+                <div class="form-group">
                   <label>Facebook APP ID</label>
                   <input type="text" class="form-control" name="facebook_appid" id="facebook_appid" value="{{ $settingArr['facebook_appid'] }}">
                 </div>
@@ -59,26 +63,28 @@
                   <label>Google +</label>
                   <input type="text" class="form-control" name="google_fanpage" id="google_fanpage" value="{{ $settingArr['google_fanpage'] }}">
                 </div>
-               <!--  <div class="form-group">
+               <div class="form-group">
                   <label>Hotline</label>
                   <input type="text" class="form-control" name="hotline" id="hotline" value="{{ $settingArr['hotline'] }}">
                 </div>
-		<div class="form-group">
+		            <!--<div class="form-group">
                   <label>Giờ làm việc</label>
                   <input type="text" class="form-control" name="gio_lam_viec" id="gio_lam_viec" value="{{ $settingArr['gio_lam_viec'] }}">
                 </div>
-<div class="form-group">
+              -->
+                <div class="form-group">
                   <label>Email header</label>
                   <input type="text" class="form-control" name="email_header" id="email_header" value="{{ $settingArr['email_header'] }}">
                 </div>
+                <!--
                 <div class="form-group">
                   <label>Email CC</label>
                   <textarea class="form-control" rows="3" name="email_cc" id="email_cc">{{ $settingArr['email_cc'] }}</textarea>
-                </div> -->
+                </div>
                 <div class="form-group">
                   <label>Thông tin công ty</label>
                   <textarea class="form-control" rows="7" name="thong_tin_cong_ty" id="thong_tin_cong_ty">{{ $settingArr['thong_tin_cong_ty'] }}</textarea>
-                </div>
+                </div>-->
                 <!-- <div class="form-group">
                   <label>Thông báo đặt hàng thành công</label>
                   <textarea class="form-control" rows="7" name="thong_bao_thanh_cong" id="thong_bao_thanh_cong">{{ $settingArr['thong_bao_thanh_cong'] }}</textarea>

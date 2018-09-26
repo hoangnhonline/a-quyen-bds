@@ -42,15 +42,15 @@
             <div class="container clearfix">
                 <div class="header-tel">
                     <ul class="list-unstyled">
-                        <li class="mailto hidden-xs"><a href="mailto:sale.bdsdongsaigon@gmail.com">sale.bdsdongsaigon@gmail.com</a></li>
-                        <li class="tel"><a href="tel:0908195468">0908.195.468</a></li>
+                        <li class="mailto hidden-xs"><a href="mailto:{!! $settingArr['email_header'] !!}">{!! $settingArr['email_header'] !!}</a></li>
+                        <li class="tel"><a href="tel:{!! $settingArr['hotline'] !!}">{!! $settingArr['hotline'] !!}</a></li>
                     </ul>
                 </div>
                 <div class="header-connect">
                     <ul class="list-unstyled clearfix">
                         <li class="text-connect">Kết nối với chúng tôi</li>
-                        <li><a href=""><img src="{{ URL::asset('public/assets/images/icon_face.png') }}" alt=""></a></li>
-                        <li><a href=""><img src="{{ URL::asset('public/assets/images/icon_twitter.png') }}" alt=""></a></li>
+                        <li><a target="_blank" href="{!! $settingArr['facebook_fanpage'] !!}"><img src="{{ URL::asset('public/assets/images/icon_face.png') }}" alt=""></a></li>
+                        <li><a target="_blank" href="{!! $settingArr['link_twitter'] !!}"><img src="{{ URL::asset('public/assets/images/icon_twitter.png') }}" alt=""></a></li>
                     </ul>
                 </div>
             </div>
