@@ -35,22 +35,34 @@ class ContactController extends Controller
         if(isset($dataArr['image_list'])){
             $dataArr['image_list'] = json_encode($dataArr['image_list']);
         }
-        $rs = Contact::create($dataArr);
+        $flag = true;
+        if (preg_match('/https:\/\/[a-z*]+/', $dataArr['content'], $matches)){                        
+            if($matches[0] != 'http://batdongsandongsaigon' && $matches[0] != 'https://batdongsandongsaigon'){
+                $flag = false;
+            }
+        }
+        if (preg_match('/http:\/\/[a-z*]+/', $dataArr['content'], $matches)){                        
+            if($matches[0] != 'http://batdongsandongsaigon' && $matches[0] != 'https://batdongsandongsaigon'){
+                $flag = false;
+            }
+        }
+        if($flag){
+            $rs = Contact::create($dataArr);          
 
-        $emailArr = ['hoangnhonline@gmail.com', 'hailinhinfo@gmail.com'];
-        
-        
-        Mail::send('frontend.email',
-            [                   
-                'dataArr'             => $rs
-            ],
-            function($message) use ($dataArr, $emailArr) {                    
-                $message->subject('Khách hàng gửi liên hệ');
-                $message->to($emailArr);
-                $message->replyTo($dataArr['email'], $dataArr['full_name']);
-                $message->from('web.0917492306@gmail.com', 'batdongsandongsg.com');
-                $message->sender('web.0917492306@gmail.com', 'batdongsandongsg.com');
-        });        
+            $emailArr = ['hoangnhonline@gmail.com', 'hailinhinfo@gmail.com'];            
+            
+            Mail::send('frontend.email',
+                [                   
+                    'dataArr'             => $rs
+                ],
+                function($message) use ($dataArr, $emailArr) {                    
+                    $message->subject('Khách hàng gửi liên hệ');
+                    $message->to($emailArr);
+                    $message->replyTo($dataArr['email'], $dataArr['full_name']);
+                    $message->from('web.0917492306@gmail.com', 'batdongsandongsg.com');
+                    $message->sender('web.0917492306@gmail.com', 'batdongsandongsg.com');
+            }); 
+        }      
 
         Session::flash('message', 'Gửi liên hệ thành công.');
 

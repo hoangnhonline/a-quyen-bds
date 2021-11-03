@@ -16,10 +16,15 @@ class Helper
     {
         return strtoupper($string);
     }
-    public static function view($object_id, $object_type){
+    public static function view($object_id, $object_type, $day = 'all'){
         $rs = CounterValues::where(['object_id' => $object_id, 'object_type' => $object_type])->first();
         if($rs){
-            return $rs->all_value;
+			if($day == 'all'){
+				return $rs->all_value;
+			}else{
+				return $rs->day_value;
+				
+			}
         }else{
             return 0;
         }
