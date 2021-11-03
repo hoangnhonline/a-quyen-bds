@@ -89,8 +89,7 @@
   width: 33.33333%;
   float: left;
   padding-left: 15px;
-  padding-right: 15px;
-  margin-bottom: 30px; }
+  padding-right: 15px; }
 
 /* Header */
 #header .header-contact {
@@ -888,8 +887,7 @@
   padding: 0;
   position: relative !important;
   top: 0;
-  width: auto !important;
-  padding-right: 10px; }
+  width: auto !important; }
 
 .scroll-wrapper > .scroll-content::-webkit-scrollbar {
   height: 0;
@@ -1040,13 +1038,13 @@
 .jssora093 .c {
   fill: none;
   stroke: #fff;
-  stroke-width: 400px;
+  stroke-width: 400;
   stroke-miterlimit: 10; }
 
 .jssora093 .a {
   fill: none;
   stroke: #fff;
-  stroke-width: 400px;
+  stroke-width: 400;
   stroke-miterlimit: 10; }
 
 .jssora093:hover {
